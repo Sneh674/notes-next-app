@@ -2,6 +2,7 @@ import {connect,disconnect} from "@/dbConfig/dbConfig";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { generateToken } from "@/helpers/jwt";
 // import jwt from "jsonwebtoken";
 
 function hashPassword(password: string): string {
@@ -35,23 +36,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create token data
-    // const tokenData = {
-    //   id: user._id,
-    //   name: user.name,
-    //   email: user.email
-    // };
+    const token=generateToken({id:user._id,email:user.email});
 
-    // Create token
-    // const token = jwt.sign(tokenData, process.env.JWT_SECRET!, {
-    //   expiresIn: "1d"
-    // });
+    console.log(token);
 
     // Create response
     const response = NextResponse.json({
       user:user,
       message: "Login successful",
-      success: true,
+      token: token,
     });
 
     // await disconnect();

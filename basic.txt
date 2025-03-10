@@ -1,0 +1,16 @@
+"use client"; // Required for App Router (app/)
+
+import { useRouter } from "next/navigation";
+
+export default function Home() {
+  const router = useRouter();
+
+  return (
+    <div>
+      <button onClick={() => router.push("/about")}>Go to About Page</button>
+      <button onClick={() => router.replace("/dashboard")}>Go to Dashboard (replace)</button>
+    </div>
+  );
+}
+router.push("/about") → Pushes /about to the history (allows going back).
+router.replace("/dashboard") → Replaces current URL (cannot go back).

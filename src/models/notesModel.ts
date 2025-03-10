@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 // Define the interface for the note document
 interface INote extends Document {
   name: string;
+  email: string;
   title: string;
   content: string;
   createdAt: Date;
@@ -12,6 +13,10 @@ interface INote extends Document {
 // Create the schema
 const noteSchema = new Schema<INote>({
   name: {
+    type: String,
+    required: true
+  },
+  email: {
     type: String,
     required: true
   },
