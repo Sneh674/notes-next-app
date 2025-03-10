@@ -46,6 +46,10 @@ a{
     margin-left: 20px;
     font-weight: bold;
 }
+errormsg{
+    color: red;
+    font-weight: bold;
+}
 
 @media (max-width: 750px) {
     body{

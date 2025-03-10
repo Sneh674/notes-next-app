@@ -1,24 +1,23 @@
-import connect from "@/dbConfig/dbConfig";
+import {connect,disconnect} from "@/dbConfig/dbConfig";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 // import jwt from "jsonwebtoken";
 
-// Connect to database
-await connect();
 function hashPassword(password: string): string {
   return crypto.createHash("sha256").update(password).digest("hex");
 }
 
 export async function POST(request: NextRequest) {
   try {
+    await connect();
     // Parse request body
     const reqBody = await request.json();
-    const { lname, lpassword } = reqBody;
+    const { lemail, lpassword } = reqBody;
 
     // Check if user exists
-    const user = await userModel.findOne({ name: lname });
-    
+    const user = await userModel.findOne({ email: lemail });
+    console.log(user);
     if (!user) {
       return NextResponse.json(
         { error: "User does not exist" },
@@ -55,8 +54,10 @@ export async function POST(request: NextRequest) {
       success: true,
     });
 
+    // await disconnect();
     return response;
   } catch (error: any) {
+    await disconnect();
     return NextResponse.json(
       { error: error.message },
       { status: 500 }
