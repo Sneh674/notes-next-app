@@ -1,22 +1,39 @@
+"use client";
+
+import { useState } from "react";
+import "./create.css"
+import axios from "axios";
+import { redirect } from 'next/navigation'
+
 const SignUp: React.FC = () => {
+    const [details, setDetails] = useState({
+        uname: "",
+        uemail: "",
+        upassword: "",
+    })
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(details)
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value)
+        setDetails((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    }
     // React.FC (or React.FunctionComponent) is a TypeScript type that provides type safety for functional components in React
     return (
-        <>
-            <h2>Welcome to our website</h2>
+        <div>
+            <div><a href="/">Go to LogIn Page</a></div>
+            <div className="crt">Create User</div>
             <div>
-                <h1>Already a user:</h1>
-                <form action="/logging" method="post">
-                    <input type="text" name="lname" placeholder="Enter name" />
-                    <input type="password" name="lpassword" placeholder="Enter password" />
-                    <input type="submit" value="Log User" id="cubtn" />
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="uname" placeholder="Enter name" onChange={handleChange} required/>
+                    <input type="email" name="uemail" placeholder="Enter email" onChange={handleChange} required/>
+                    <input type="password" name="upassword" placeholder="Enter password" onChange={handleChange} required/>
+                    <input type="submit" value="Create User" id="crtbtn" />
                 </form>
-                {/* Server-side templating like EJS cannot be directly used in React. */}
-                {/* You need to pass `message` as a prop or manage it via state/context. */}
-                {/* Example: {message && <div style={{ color: 'red' }}>{message}</div>} */}
-                <h1>New user:</h1>
-                <a href="/createuser">Sign Up</a>
             </div>
-        </>
+        </div>
     );
 }
 

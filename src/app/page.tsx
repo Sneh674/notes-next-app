@@ -3,6 +3,7 @@
 import { useState } from "react";
 import "./home.css"
 import axios from "axios";
+import { redirect } from 'next/navigation'
 // import { useRouter } from "next/router";
 
 export default function Home() {
@@ -47,7 +48,7 @@ export default function Home() {
           <div className="errormsg">{errorMsg}</div>
         </form>
         <h1>New user:</h1>
-        <a href="/createuser">Sign Up</a>
+        <a href="/client/signup">Sign Up</a>
       </div>
     </>
   );
