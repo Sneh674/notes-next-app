@@ -2,9 +2,31 @@ import { connect, disconnect } from "@/dbConfig/dbConfig";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
+import { generateToken } from "@/helpers/jwt";
+import nodemailer from "nodemailer";
 
 function hashPassword(password: string): string {
     return crypto.createHash("sha256").update(password).digest("hex");
+}
+function generateOTP(): string {
+    return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+}
+
+async function sendOTPEmail(email: string, otp: string) {
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.MY_EMAIL,
+            pass: process.env.MY_PASSWORD,
+        },
+    });
+
+    await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: "Your OTP Code",
+        text: `Your OTP code is: ${otp}. It is valid for 10 minutes.`,
+    });
 }
 
 export async function POST(request: NextRequest) {
@@ -23,15 +45,16 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const hashedPassword = hashPassword(upassword);
-
-        //   const token=generateToken({id:user._id,email:user.email});
-
-        //   console.log(token);
+        const createdUser = await userModel.create({
+            name: uname,
+            email: uemail,
+            password: hashPassword(upassword)
+        });
+        // const token=generateToken({id:createdUser._id,email:createdUser.email});
 
         // Create response
         const response = NextResponse.json({
-            // user:user,
+            user: createdUser,
             message: "Registered successful",
             // token: token,
         });

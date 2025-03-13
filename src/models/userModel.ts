@@ -5,6 +5,8 @@ interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  otp: string;
+  expiresAt: Date;
 }
 
 // Create the schema
@@ -21,7 +23,9 @@ const logSchema = new Schema<IUser>({
   password: {
     type: String,
     required: true
-  }
+  },
+  otp: { type: String, required: true, default: "" },
+  expiresAt: { type: Date, required: true, default: Date.now },
 });
 
 // Create and export the model
