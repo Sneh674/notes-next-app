@@ -22,7 +22,7 @@ async function sendOTPEmail(email: string, otp: string) {
     });
 
     await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+        from: process.env.MY_EMAIL,
         to: email,
         subject: "Your OTP Code",
         text: `Your OTP code is: ${otp}. It is valid for 10 minutes.`,
@@ -45,10 +45,14 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        const otp = generateOTP();
+        // await sendOTPEmail(uemail, otp);
         const createdUser = await userModel.create({
             name: uname,
             email: uemail,
-            password: hashPassword(upassword)
+            password: hashPassword(upassword),
+            otp, 
+            expiresAt: new Date(Date.now() + 10 * 60000)
         });
         // const token=generateToken({id:createdUser._id,email:createdUser.email});
 
