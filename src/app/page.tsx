@@ -24,6 +24,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" }
       });
       console.log(response);
+      localStorage.setItem("token", response.data.token);
       setErrorMsg("")
       router.push("client/notes/all")
 

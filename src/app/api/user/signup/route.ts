@@ -46,21 +46,22 @@ export async function POST(request: NextRequest) {
         }
 
         const otp = generateOTP();
-        // await sendOTPEmail(uemail, otp);
+        await sendOTPEmail(uemail, otp);
         const createdUser = await userModel.create({
             name: uname,
             email: uemail,
             password: hashPassword(upassword),
-            otp, 
+            otp,
             expiresAt: new Date(Date.now() + 10 * 60000)
         });
-        // const token=generateToken({id:createdUser._id,email:createdUser.email});
 
-        // Create response
+        const token = generateToken({ id: createdUser._id, email: createdUser.email });
+
+        console.log(token);
         const response = NextResponse.json({
             user: createdUser,
             message: "Registered successful",
-            // token: token,
+            token: token,
         });
 
         // await disconnect();

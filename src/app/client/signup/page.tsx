@@ -20,6 +20,7 @@ const SignUp: React.FC = () => {
         try {
             const res = await axios.post("/api/user/signup", details);
             console.log(res);
+            localStorage.setItem("token", res.data.token);
             setErrorMsg("");
             router.push("/");
         } catch (error: any) {
