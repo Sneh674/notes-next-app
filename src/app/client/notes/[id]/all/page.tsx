@@ -1,12 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 export default function AllNotes() {
+    const[userId,setUserId]=useState("")
+    const params = useParams();
+
+    // setUserId(params.id); //this causes error of infinite render as it renders page on every update
+    useEffect(() => {
+        if (params.id) {
+            setUserId(params.id);
+        }
+    }, [params.id]);
     return (
-        <div>hello</div>
+        <div>hello, {userId}</div>
         //     <>
         //     <div class="notesmain">
         //     <a href="/logout" class="loglink">Log Out</a>

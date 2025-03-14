@@ -26,7 +26,7 @@ export default function Home() {
       console.log(response);
       localStorage.setItem("token", response.data.token);
       setErrorMsg("")
-      router.push("client/notes/all")
+      router.push(`client/notes/${response.data.user._id}/all`)
 
     } catch (error) {
       if (error.response) {
