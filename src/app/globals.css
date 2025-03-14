@@ -34,9 +34,35 @@ a {
     color-scheme: dark;
   }
 } */
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+body {
+  background-color: rgb(81, 82, 83);
+  color: #ffffff;
+  padding: 20px;
+  font-family: "Spline Sans Mono", monospace;
+}
+
+@media (max-width: 750px) {
+  body {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 470px) {
+  body {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 350px) {
+  body {
+    padding: 7px;
+  }
 }

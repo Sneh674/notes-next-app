@@ -1,26 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Spline+Sans+Mono:ital,wght@0,300..700;1,300..700&display=swap');
 
-*{
-    padding: 0%;
-    margin: 0%;
-}
-body{
-    background-color: rgb(67, 67, 67);
+.bodyCreateUser {
+    background-color: rgb(81, 82, 83);
     color: #ffffff;
     padding: 20px;
     font-family: "Spline Sans Mono", monospace;
 }
-a{
+
+.toLoginLink {
     color: bisque;
     font-size: large;
 }
-.crt{
+
+.crt {
     margin-top: 20px;
     font-size: xx-large;
     margin-bottom: 20px;
     font-weight: bold;
 }
-form{
+
+.createUserForm {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -29,92 +27,100 @@ form{
     background-color: #d9cda3;
     border-radius: 10px;
 }
-form>input{
+
+.createUserFormInput {
     padding: 10px;
     border-radius: 10px;
     font-family: "Spline Sans Mono", monospace;
 }
-#crtbtn{
-    width: 200px;
+
+.crtbtn {
+    width: 150px;
     font-size: large;
     font-weight: bold;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 @media (max-width: 750px) {
-    .crt{
+    .crt {
         font-size: x-large;
         margin-bottom: 15px;
     }
-    a{
+    .toLoginLink {
         font-size: medium;
     }
-    form{
+    .createUserForm {
         width: 380px;
     }
-    #crtbtn{
+    .crtbtn {
         font-size: medium;
-        width: 150px;
+        width: 120px;
     }
 }
+
 @media (max-width: 440px) {
-    .crt{
+    .crt {
         font-size: large;
         margin-bottom: 10px;
         margin-top: 10px;
     }
-    a{
+    .toLoginLink {
         font-size: small;
     }
-    form{
+    .createUserForm {
         width: 250px;
     }
-    form>input{
+    .createUserFormInput {
         padding: 5px;
     }
-    #crtbtn{
+    .crtbtn {
         font-size: small;
-        width: 110px;
+        width: 100px;
     }
 }
+
 @media (max-width: 300px) {
-    .crt{
+    .crt {
         font-size: medium;
         margin-bottom: 10px;
         margin-top: 10px;
     }
-    a{
+    .toLoginLink {
         font-size: x-small;
     }
-    form{
+    .createUserForm {
         width: 200px;
     }
-    form>input{
+    .createUserFormInput {
         padding: 5px;
         font-size: small;
     }
-    #crtbtn{
+    .crtbtn {
         font-size: x-small;
         width: 82px;
     }
 }
+
 @media (max-width: 260px) {
-    .crt{
+    .crt {
         font-size: medium;
         margin-bottom: 7px;
         margin-top: 7px;
     }
-    a{
+    .toLoginLink {
         font-size: xx-small;
     }
-    form{
+    .createUserForm {
         width: 150px;
         gap: 5px;
     }
-    form>input{
+    .createUserFormInput {
         padding: 5px;
         font-size: x-small;
     }
-    #crtbtn{
+    .crtbtn {
         font-size: xx-small;
         width: 80px;
     }

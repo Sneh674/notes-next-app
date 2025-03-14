@@ -1,18 +1,9 @@
-*{
-    padding: 0%;
-    margin: 0%;
-}
-body{
-    background-color: rgb(81, 82, 83);
-    color: #ffffff;
-    padding: 20px;
-    font-family: "Spline Sans Mono", monospace;
-}
-h1{
+.h1 {
     margin-top: 20px;
     margin-bottom: 15px;
 }
-form{
+
+.logInForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -24,42 +15,45 @@ form{
     width: 600px;
     margin-top: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.7), 
-                0 0 25px rgba(52, 152, 219, 0.5),
-                0 0 35px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.7),
+        0 0 25px rgba(52, 152, 219, 0.5),
+        0 0 35px rgba(52, 152, 219, 0.3);
 }
-form>input{
+
+.logInForm>input {
     padding: 15px;
     border-radius: 20px;
     font-family: "Spline Sans Mono", monospace;
     font-size: large;
     background-color: #d0eab5;
 }
-#cubtn{
+
+.cubtn {
     font-size: large;
     width: 150px;
     font-weight: bold;
 }
-a{
+
+.signUpLink {
     font-size: x-large;
     color: rgb(56, 242, 39);
     margin-left: 20px;
     font-weight: bold;
 }
-errormsg{
+
+.errormsg {
     color: red;
     font-weight: bold;
 }
 
 @media (max-width: 750px) {
-    body{
-        padding: 15px;
-    }
-    h1{
+
+    .h1 {
         margin-top: 15px;
         margin-bottom: 10px;
     }
-    form{
+
+    .logInForm {
         gap: 15px;
         padding: 15px;
         border-radius: 15px;
@@ -67,33 +61,37 @@ errormsg{
         margin-top: 15px;
         margin-bottom: 15px;
     }
-    form>input{
+
+    .logInForm>input {
         padding: 10px;
         border-radius: 15px;
         font-size: medium;
     }
-    #cubtn{
+
+    .cubtn {
         font-size: medium;
         width: 120px;
     }
-    a{
+
+    .signUpLink {
         font-size: large;
         margin-left: 15px;
     }
 }
+
 @media (max-width: 470px) {
-    body{
-        padding: 10px;
-    }
-    h1{
+
+    .h1 {
         margin-top: 10px;
         margin-bottom: 7px;
         font-size: large;
     }
-    h2{
+
+    .h2 {
         font-size: large;
     }
-    form{
+
+    .logInForm {
         gap: 10px;
         padding: 10px;
         border-radius: 10px;
@@ -101,33 +99,37 @@ errormsg{
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    form>input{
+
+    .logInForm>input {
         padding: 7px;
         border-radius: 10px;
         font-size: small;
     }
-    #cubtn{
+
+    .cubtn {
         font-size: small;
         width: 100px;
     }
-    a{
+
+    .signUpLink {
         font-size: medium;
         margin-left: 10px;
     }
 }
+
 @media (max-width: 350px) {
-    body{
-        padding: 7px;
-    }
-    h1{
+
+    .h1 {
         margin-top: 7px;
         margin-bottom: 5px;
         font-size: medium;
     }
-    h2{
+
+    .h2 {
         font-size: medium;
     }
-    form{
+
+    .logInForm {
         gap: 7px;
         padding: 7px;
         border-radius: 7px;
@@ -135,16 +137,19 @@ errormsg{
         margin-top: 7px;
         margin-bottom: 7px;
     }
-    form>input{
+
+    .logInForm>input {
         padding: 5px;
         border-radius: 7px;
         font-size: x-small;
     }
-    #cubtn{
+
+    .cubtn {
         font-size: x-small;
         width: 80px;
     }
-    a{
+
+    .signUpLink {
         font-size: medium;
         margin-left: 7px;
     }
