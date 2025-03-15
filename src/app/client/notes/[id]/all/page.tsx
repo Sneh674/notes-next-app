@@ -6,13 +6,40 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 
 export default function AllNotes() {
-    const[userId,setUserId]=useState("")
+    const [userId, setUserId] = useState("")
     const params = useParams();
+    const router = useRouter();
 
+    const fetchNotes = async (token: string) => {
+        try {
+            const response = await axios.get("/api/notes/allnotes", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            console.log("trial2");
+            console.log(response); // Now response will be shown in console
+        } catch (error) {
+            console.error("Error fetching notes:", error.message);
+        }
+    };
     // setUserId(params.id); //this causes error of infinite render as it renders page on every update
     useEffect(() => {
+        console.log({ "paramsId": params.id });
         if (params.id) {
             setUserId(params.id);
+        }
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.replace("/"); // Redirect if no token
+            return;
+        }
+        console.log("trial1")
+        try {
+            fetchNotes(token);
+        } catch (error) {
+            console.error("Error fetching notes:", error.message);
         }
     }, [params.id]);
     return (
