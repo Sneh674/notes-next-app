@@ -34,21 +34,20 @@ export async function GET(req: NextRequest) {
 
         // Verify token
         const user = verifyToken(token);
-        
+
         if (!user) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
         console.log(user);
-        return NextResponse.json({ user });
+        // return NextResponse.json({ user });
 
-        // try {
-        //     const notes = await NoteModel.findOne({ email: user.email });
+        try {
+            const notes = await NoteModel.find({ email: user.email });
 
-        //     return NextResponse.json({ user: user.email, allNotes: notes });
-        // } catch (error) {
-        //     return NextResponse.json({ message: "Error fetching notes" }, { status: 500 });
-        // }
-        // const reqbody=await request.json()
+            return NextResponse.json({ user: user.email, allNotes: notes });
+        } catch (error) {
+            return NextResponse.json({ message: "Error fetching notes" }, { status: 500 });
+        }
     }
     catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
