@@ -4,12 +4,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
+import { set } from "mongoose";
 
 export default function AllNotes() {
     const [userId, setUserId] = useState("")
+    const [notes, setNotes] = useState([]);
+    const [username, setUsername] = useState("");
     const params = useParams();
     const router = useRouter();
 
+    const fetchUser = async (token: string) => {
+        try {
+            const response = await axios.get("/api/user/getuser", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUsername(response.data.username);
+            return response.data;
+            // console.log(response); // Now response will be shown in console
+        } catch (error) {
+            console.error("Error fetching user:", error.message);
+        }
+    }
     const fetchNotes = async (token: string) => {
         try {
             const response = await axios.get("/api/notes/allnotes", {
@@ -17,9 +34,9 @@ export default function AllNotes() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-
-            console.log("trial2");
-            console.log(response); // Now response will be shown in console
+            setNotes(response.data.allNotes);
+            return response.data;
+            // console.log(response); // Now response will be shown in console
         } catch (error) {
             console.error("Error fetching notes:", error.message);
         }
@@ -36,45 +53,46 @@ export default function AllNotes() {
             return;
         }
         console.log("trial1")
-        try {
-            fetchNotes(token);
-        } catch (error) {
-            console.error("Error fetching notes:", error.message);
+        const fetchData = async (token: string) => {
+            try {
+                console.log("trial2")
+                await fetchUser(token);
+                // const userResponse = await fetchUser(token);
+                // console.log(userResponse);
+                try {
+                    await fetchNotes(token);
+                    // const notesResponse = await fetchNotes(token);
+                    // console.log(notesResponse);
+                } catch (error) {
+                    console.error("Error fetching notes:", error.message);
+                }
+            } catch (error) {
+                console.error("Error fetching user:", error.message);
+            }
         }
+        fetchData(token);
     }, [params.id]);
     return (
-        <div>hello, {userId}</div>
-        //     <>
-        //     <div class="notesmain">
-        //     <a href="/logout" class="loglink">Log Out</a>
-        //     <div class="noteshead">Your Notes</div>
-        //     <div class="notesuser">
-        //         {/* <%= user %> */}
-        //     </div>
-        // </div>
-        // <div class="notesadd">
-        //     <div>Add a note</div>
-        //     <form action="/notes/add" method="post">
-        //         <input type="hidden" name="username" value="<%= user %>">
-        //         <input type="text" name="title" id="addtitle" placeholder="enter title">
-        //         <input type="hidden" name="content" id="addcont" placeholder="enter content" value="">
-        //         {/* <!-- <textarea name="content" id="addcont" rows="5" placeholder="enter content"></textarea> --> */}
-        //         <input type="submit" value="Add Note" class="addbtn" style="color: rgb(250, 177, 81);">
-        //     </form>
-        // </div>
-        // <div class="notes">
-        //     {/* <% allnotes.forEach((note)=>{ %>
-        //         <div class="note">
-        //             <div class="ntitle"><%= note.title %></div>
-        //             <div class="ntext"><%= note.content %></div>
-        //             <div class="smlink"><a href="/notes/full/<%= note._id %>">See More</a></div>
-        //             <div class="edel">
-        //                 <a href="/notes/edit/<%= note._id %>" style="color: rgb(136, 136, 244); font-weight: bold;">edit</a>
-        //                 <a href="/notes/delete/<%= note._id %>" style="color: rgb(105, 105, 255); font-weight: bold;">delete</a>
-        //             </div>
-        //         </div>
-        //     <% }) %> */}
-        // </div>
-        //     </>
-    )
+        <div>
+            <h2>Hello, {username}</h2>
+            <div>
+                {notes.length > 0 ? (
+                    notes.map((note) => (
+                        <div key={note._id}>
+                            <div>{note.title}</div>
+                            <div>{note.content}</div>
+                            <div><a href={`/notes/full/${note._id}`}>See More</a></div>
+                            <div>
+                                <a href={`/notes/edit/${note._id}`}>edit</a>
+                                <a href={`/notes/delete/${note._id}`}>delete</a>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No notes found</p>
+                )}
+            </div>
+        </div>
+    );
+    
 }
