@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { set } from "mongoose";
+import styles from "./all.module.css";
+// import { set } from "mongoose";
 
 export default function AllNotes() {
     const [userId, setUserId] = useState("")
@@ -41,6 +42,10 @@ export default function AllNotes() {
             console.error("Error fetching notes:", error.message);
         }
     };
+    const handleLogout = async () => {
+        localStorage.removeItem("token");
+        router.replace("/");
+    }
     // setUserId(params.id); //this causes error of infinite render as it renders page on every update
     useEffect(() => {
         console.log({ "paramsId": params.id });
@@ -73,16 +78,22 @@ export default function AllNotes() {
         fetchData(token);
     }, [params.id]);
     return (
-        <div>
-            <h2>Hello, {username}</h2>
-            <div>
+        <div className={styles.allnotesmain}>
+            <div className={styles.notesmain}>
+                <button className={styles.logoutbutton} onClick={handleLogout}>Log Out</button>
+                {/* <a href="/logout" class={styles.loglink}>Log Out</a> */}
+                <div className={styles.noteshead}>Your Notes</div>
+                <div className={styles.notesuser}>{username}</div>
+            </div>
+            {/* <h2>Hello, {username}</h2> */}
+            <div className={styles.notes}>
                 {notes.length > 0 ? (
                     notes.map((note) => (
-                        <div key={note._id}>
-                            <div>{note.title}</div>
-                            <div>{note.content}</div>
-                            <div><a href={`/notes/full/${note._id}`}>See More</a></div>
-                            <div>
+                        <div className={styles.note} key={note._id}>
+                            <div className={styles.ntitle}>{note.title}</div>
+                            <div className={styles.ntext}>{note.content}</div>
+                            <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div>
+                            <div className={styles.edel}>
                                 <a href={`/notes/edit/${note._id}`}>edit</a>
                                 <a href={`/notes/delete/${note._id}`}>delete</a>
                             </div>
@@ -94,5 +105,5 @@ export default function AllNotes() {
             </div>
         </div>
     );
-    
+
 }

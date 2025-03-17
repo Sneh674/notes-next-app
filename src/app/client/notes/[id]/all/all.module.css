@@ -1,0 +1,394 @@
+/* *{
+    padding: 0%;
+    margin: 0%;
+    color: white;
+} */
+.allnotesmain{
+    min-height: 100vh;
+    /* width: 100vw; */
+    font-family: "Spline Sans Mono", monospace;
+    background-color: black;
+    /* padding: 0px; */
+    /* margin: 0px; */
+}
+
+.notesmain{
+    padding: 20px;
+}
+.noteshead{
+    font-family: "Spline Sans Mono", monospace;
+    font-size: xx-large;
+    color: #969494;
+    margin: 20px;
+}
+.loglink{
+    color: bisque;
+}
+.logoutbutton{
+    font-family: "Spline Sans Mono", monospace;
+    background-color: #3c3c3c;
+    color: bisque;
+    padding: 5px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.notes{
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    /* box-sizing: border-box; ✅ Prevents extra width issues */
+    gap: 20px;
+    padding: 30px;
+
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 2%; */
+    /* font-family: "Playwrite GB S", cursive; */
+}
+.note{
+    /* width: 190px; */
+    width: 100%;
+    text-wrap: wrap;
+    background-color: rgb(50, 49, 49);;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    gap: 17px;
+    max-width: 100%; /* Ensures it doesn't break grid */
+
+}
+.ntitle{
+    background-color: rgb(50, 49, 49);
+    /* border-radius: 20px; */
+    font-size: 30px;
+    color: rgb(232, 218, 71);
+    height: 100px;
+    font-family: "Playwrite GB S", cursive;
+    overflow: hidden;
+}
+.ntext{
+    background-color: rgb(50, 49, 49);
+    font-size: 23px;
+    height: 150px;
+    overflow: hidden;
+    font-family: "Playwrite GB S", cursive;
+    color: rgb(196, 196, 148);
+}
+.note>a{
+    background-color: rgb(50, 49, 49);
+    color: blue;
+    display: flex;
+    justify-content: right;
+}
+.smlink{
+    display: flex;
+    justify-content: right;
+}
+.edel{
+    display: flex;
+    background-color: rgb(50, 49, 49);
+    gap: 10%;
+    justify-content: right;
+}
+
+.notesadd{
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+.notesadd>div{
+    margin-bottom: 10px;
+    font-size: x-large;
+}
+.notesadd>form{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.notesadd>form>input{
+    border-radius: 12px;
+    padding: 10px;
+    color: #5f5f61;
+    font-family: "Spline Sans Mono", monospace;
+}
+.notesadd>form>textarea{
+    border-radius: 12px;
+    padding: 10px;
+    color: #5f5f61;
+    font-family: "Spline Sans Mono", monospace;
+}
+.addbtn{
+    color: rgb(205, 205, 207);
+    width: 150px;
+    background-color: #5f5f61;
+}
+
+
+@media (max-width: 750px) {
+    .notesadd>div{
+        font-size: larger;
+    }
+    .notesmain{
+        padding: 15px;
+    }
+    .noteshead{
+        margin: 15px;
+    }
+    .notes{
+        grid-template-columns: repeat(4, 1fr); 
+        /* gap: 30px; */
+    }
+    .note{
+        width:100%;
+        /* width: 170px; */
+    }
+    .ntitle{
+        font-size: large;
+        height: 80px;
+    }
+    .ntext{
+        height: 130px;
+    }
+}
+
+@media (max-width: 630px) {
+    .notesadd>div{
+        font-size: larger;
+    }
+    .notesmain{
+        padding: 15px;
+    }
+    .noteshead{
+        margin: 15px;
+    }
+    .notes{
+        gap: 60px;
+    }
+    .note{
+        /* width: 200px; */
+    }
+    .ntitle{
+        font-size: large;
+        height: 80px;
+    }
+    .ntext{
+        height: 130px;
+    }
+}
+
+@media (max-width: 520px) {
+    .notesadd>div{
+        font-size: large;
+    }
+    .notesmain{
+        padding: 12px;
+    }
+    .noteshead{
+        margin: 12px;
+    }
+    .notes{
+        gap: 60px;
+    }
+    .note{
+        /* width: 170px; */
+        padding: 15px;
+    }
+    .ntitle{
+        font-size: large;
+        height: 65px;
+    }
+    .ntext{
+        height: 90px;
+        font-size: medium;
+    }
+    .notesadd>form{
+        width: 350px;
+        gap: 7px;
+    }
+}
+@media (max-width: 490px) {
+    .notes{
+        gap: 20px;
+    }
+}
+@media (max-width: 440px) {
+    .notesadd>div{
+        font-size: medium;
+    }
+    .notesmain{
+        padding: 10px;
+    }
+    .noteshead{
+        margin: 10px;
+        font-size: x-large;
+    }
+    .notes{
+        gap: 50px;
+    }
+    .note{
+        /* width: 130px; */
+        padding: 15px;
+    }
+    .ntitle{
+        font-size: medium;
+        height: 50px;
+    }
+    .ntext{
+        height: 70px;
+        font-size: small;
+    }
+    .notesadd>form{
+        width: 300px;
+        gap: 6px;
+    }
+    .addbtn{
+        width: 100px;
+    }
+    .smlink{
+        font-size: small;
+    }
+    .edel{
+        font-size: small;
+    }
+}
+@media (max-width: 400px) {
+    .notes{
+        gap: 20px;
+    }
+}
+@media (max-width: 360px) {
+    .notesadd>div{
+        font-size: medium;
+    }
+    .notesmain{
+        padding: 8px;
+    }
+    .noteshead{
+        margin: 8px;
+    }
+    .notes{
+        gap: 10px;
+    }
+    .note{
+        border-radius: 10px;
+        /* width: 75px; */
+        padding: 10px;
+    }
+    .ntitle{
+        font-size: x-small;
+        height: 25px;
+    }
+    .ntext{
+        height: 50px;
+        font-size: x-small;
+    }
+    .notesadd{
+        padding-left: 10px;
+        margin-bottom: 15px;
+    }
+    .notesadd>form{
+        width: 270px;
+        gap: 6px;
+    }
+    .notesadd>form>input{
+        border-radius: 10px;
+        padding: 7px;
+    }
+    .notesadd>form>textarea{
+        border-radius: 10px;
+        padding: 7px;
+    }
+    .addbtn{
+        width: 80px;
+        font-size: small;
+    }
+    .smlink{
+        font-size: x-small;
+    }
+    .edel{
+        font-size: x-small;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 320px) {
+    .notesadd>div{
+        font-size: smaller;
+    }
+    .notesmain{
+        padding: 6px;
+    }
+    .loglink{
+        font-size: x-small;
+    }
+    .noteshead{
+        margin: 6px;
+        font-size: large;
+    }
+    .notes{
+        gap: 6px;
+    }
+    .note{
+        border-radius: 10px;
+        /* width: 75px; */
+        padding: 10px;
+    }
+    .ntitle{
+        font-size: xx-small;
+        height: 25px;
+    }
+    .ntext{
+        height: 50px;
+        font-size: xx-small;
+    }
+    .notesadd{
+        padding-left: 10px;
+        margin-bottom: 15px;
+    }
+    .notesadd>form{
+        width: 270px;
+        gap: 6px;
+    }
+    .notesadd>form>input{
+        border-radius: 10px;
+        padding: 7px;
+    }
+    .notesadd>form>textarea{
+        border-radius: 10px;
+        padding: 7px;
+    }
+    .addbtn{
+        width: 80px;
+        font-size: small;
+    }
+    .smlink{
+        font-size: xx-small;
+    }
+    .edel{
+        font-size: xx-small;
+        gap: 6px;
+    }
+}
+@media (max-width: 310px) {
+    .notesadd>form{
+        width: 200px;
+    }
+    .notes{
+        gap: 5px;
+    }
+    .note{
+        /* width: 70px; */
+    }
+}
+@media (max-width: 310px) {
+    .notes{
+        gap: 20px;
+    }
+    .note{
+        /* width: 90px; */
+    }
+}

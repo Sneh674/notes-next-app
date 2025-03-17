@@ -2,7 +2,9 @@
     margin-top: 20px;
     margin-bottom: 15px;
 }
-
+.homemain{
+    padding: 20px;
+}
 .logInForm {
     display: flex;
     flex-direction: column;

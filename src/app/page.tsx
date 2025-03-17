@@ -39,7 +39,7 @@ export default function Home() {
     }
   }
   return (
-    <>
+    <div className={styles.homemain}>
       <h2 className={styles.h2}>Welcome to our website</h2>
       <div className={styles.div}>
         <h1 className={styles.h1}>Already a user:</h1>
@@ -52,6 +52,6 @@ export default function Home() {
         <h1>New user:</h1>
         <Link href="/client/signup" className={styles.signUpLink}>Sign Up</Link>
       </div>
-    </>
+    </div>
   );
 }

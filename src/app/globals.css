@@ -42,27 +42,36 @@ a {
   margin: 0;
 }
 
-body {
+/* body {
   background-color: rgb(81, 82, 83);
   color: #ffffff;
   padding: 20px;
   font-family: "Spline Sans Mono", monospace;
+} */
+html, body, #__next {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Spline Sans Mono", monospace;
+  background-color: rgb(81, 82, 83); /* Optional */
+  color: white; /* Optional */
 }
+
 
 @media (max-width: 750px) {
   body {
-    padding: 15px;
+    padding: 0px;
   }
 }
 
 @media (max-width: 470px) {
   body {
-    padding: 10px;
+    padding: 0px;
   }
 }
 
 @media (max-width: 350px) {
   body {
-    padding: 7px;
+    padding: 0px;
   }
 }
