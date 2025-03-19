@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         // return NextResponse.json({ user });
 
         try {
-            const notes = await NoteModel.find({ email: user.email });
+            const notes = await NoteModel.find({ email: user.email }).sort({ updatedAt: -1 });
             await disconnect();
             return NextResponse.json({ user: user.email, allNotes: notes });
         } catch (error) {
