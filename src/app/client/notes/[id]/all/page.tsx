@@ -86,6 +86,24 @@ export default function AllNotes() {
                 <div className={styles.notesuser}>{username}</div>
             </div>
             {/* <h2>Hello, {username}</h2> */}
+            <div className={styles.notesadd}>
+                <div>Add a note</div>
+                <form action="">
+                    <input type="hidden" name="username" value={username} />
+                    <input type="text" name="title" id="addtitle" placeholder="enter title" />
+                    <input type="hidden" name="content" id="addcont" placeholder="enter content" value="" />
+                    <input type="submit" value="Add Note" className={styles.addbtn} style={{ color: 'rgb(250, 177, 81)', }} />
+                </form>
+            </div>
+            {/* <div className={styles.notesadd}>
+                <div>Add a note</div>
+                <form action="/notes/add" method="post">
+                    <input type="hidden" name="username" value="<%= user %>">
+                    <input type="text" name="title" id="addtitle" placeholder="enter title">
+                    <input type="hidden" name="content" id="addcont" placeholder="enter content" value="">
+                    <input type="submit" value="Add Note" className="addbtn" style={{color: 'rgb(250, 177, 81)',}}>
+                </form>
+            </div> */}
             <div className={styles.notes}>
                 {notes.length > 0 ? (
                     notes.map((note) => (
@@ -104,6 +122,70 @@ export default function AllNotes() {
                 )}
             </div>
         </div>
+
+
+
+
+
+
+
+        // <div className={styles.allnotesmain}>
+        //     <div className={styles.notesmain}>
+        //         <button className={styles.logoutbutton} onClick={handleLogout}>
+        //             Log Out
+        //         </button>
+        //         <div className={styles.noteshead}>Your Notes</div>
+        //         <div className={styles.notesuser}>{username}</div>
+        //     </div>
+
+        //     {/* <div className={styles.notesadd}>
+        //         <div>Add a note</div>
+        //         <form action="/notes/add" method="post">
+        //             <input type="hidden" name="username" value={username} />
+        //             <input
+        //                 type="text"
+        //                 name="title"
+        //                 id="addtitle"
+        //                 placeholder="Enter title"
+        //                 value={title}
+        //                 onChange={handleTitleChange}
+        //             />
+        //             <input
+        //                 type="hidden"
+        //                 name="content"
+        //                 id="addcont"
+        //                 value={content}
+        //                 onChange={handleContentChange}
+        //             />
+        //             <input
+        //                 type="submit"
+        //                 value="Add Note"
+        //                 className={styles.addbtn}
+        //                 style={{ color: "rgb(250, 177, 81)" }}
+        //             />
+        //         </form>
+        //     </div> */}
+
+        //     <div className={styles.notes}>
+        //         {notes.length > 0 ? (
+        //             notes.map((note) => (
+        //                 <div className={styles.note} key={note._id}>
+        //                     <div className={styles.ntitle}>{note.title}</div>
+        //                     <div className={styles.ntext}>{note.content}</div>
+        //                     <div className={styles.smlink}>
+        //                         <a href={`/notes/full/${note._id}`}>See More</a>
+        //                     </div>
+        //                     <div className={styles.edel}>
+        //                         <a href={`/notes/edit/${note._id}`}>Edit</a>
+        //                         <a href={`/notes/delete/${note._id}`}>Delete</a>
+        //                     </div>
+        //                 </div>
+        //             ))
+        //         ) : (
+        //             <p>No notes found</p>
+        //         )}
+        //     </div>
+        // </div>
     );
 
 }

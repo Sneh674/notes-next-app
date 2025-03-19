@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
         // return NextResponse.json({ message: "Hello" });
         await connect();
         console.log("Connected to database");
-        
+
         // Extract token from Authorization header
         const authHeader = req.headers.get("Authorization");
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -46,10 +46,14 @@ export async function GET(req: NextRequest) {
 
             return NextResponse.json({ user: user.email, allNotes: notes });
         } catch (error) {
-            return NextResponse.json({ message: "Error fetching notes" }, { status: 500 });
+            return NextResponse.json({ message: "Error fetching notes", error }, { status: 500 });
         }
+        await disconnect();
     }
-    catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    catch (error: unknown) {  // Use `unknown` for proper typing
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
     }
 }
