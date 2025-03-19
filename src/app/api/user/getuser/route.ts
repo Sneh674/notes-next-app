@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         }
         const users = await UserModel.findOne({ _id:user.id});
         await disconnect();
-        return NextResponse.json({ username: users.name });
+        return NextResponse.json({ username: users.name, email: users.email });
     } catch (error: unknown) {  // Use `unknown` for proper typing
         if (error instanceof Error) {
             return NextResponse.json({ error: error.message }, { status: 500 });

@@ -24,6 +24,7 @@ export default function AllNotes() {
             });
             setUsername(response.data.username);
             setUseremail(response.data.email);
+            console.log(response.data);
             return response.data;
             // console.log(response); // Now response will be shown in console
         } catch (error) {
@@ -70,7 +71,7 @@ export default function AllNotes() {
                 },
             });
             console.log(response);
-            // form.reset();
+            form.reset();
             fetchNotes(token);
         } catch (error) {
             console.error("Error adding note:", error.message);
@@ -126,15 +127,6 @@ export default function AllNotes() {
                     <input type="submit" value="Add Note" className={styles.addbtn} style={{ color: 'rgb(250, 177, 81)', }} />
                 </form>
             </div>
-            {/* <div className={styles.notesadd}>
-                <div>Add a note</div>
-                <form action="/notes/add" method="post">
-                    <input type="hidden" name="username" value="<%= user %>">
-                    <input type="text" name="title" id="addtitle" placeholder="enter title">
-                    <input type="hidden" name="content" id="addcont" placeholder="enter content" value="">
-                    <input type="submit" value="Add Note" className="addbtn" style={{color: 'rgb(250, 177, 81)',}}>
-                </form>
-            </div> */}
             <div className={styles.notes}>
                 {notes.length > 0 ? (
                     notes.map((note) => (

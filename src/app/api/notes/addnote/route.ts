@@ -4,7 +4,7 @@ import NoteModel from "@/models/notesModel";
 import { connect, disconnect } from "@/dbConfig/dbConfig";
 
 export async function POST(request: NextRequest) {
-    try{
+    try {
         await connect();
         // Extract token from Authorization header
         const authHeader = request.headers.get("Authorization");
@@ -21,8 +21,11 @@ export async function POST(request: NextRequest) {
         if (!user) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
+        console.log("trial1");
         const reqBody = await request.json();
         const { username, title, content, useremail } = reqBody;
+        console.log("trial2");
+        console.log({ username, title, content, useremail });
         const createdNote = await NoteModel.create({
             name: username,
             title: title,
@@ -31,6 +34,7 @@ export async function POST(request: NextRequest) {
         });
         console.log(createdNote);
         await disconnect();
+        return NextResponse.json({ message: "Note added successfully", createdNote });
     } catch (error: unknown) {  // Use `unknown` for proper typing
         if (error instanceof Error) {
             return NextResponse.json({ error: error.message }, { status: 500 });
