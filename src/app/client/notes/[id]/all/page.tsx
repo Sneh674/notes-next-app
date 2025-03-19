@@ -10,6 +10,7 @@ import styles from "./all.module.css";
 export default function AllNotes() {
     const [userId, setUserId] = useState("")
     const [notes, setNotes] = useState([]);
+    const [useremail, setUseremail] = useState("");
     const [username, setUsername] = useState("");
     const params = useParams();
     const router = useRouter();
@@ -22,6 +23,7 @@ export default function AllNotes() {
                 },
             });
             setUsername(response.data.username);
+            setUseremail(response.data.email);
             return response.data;
             // console.log(response); // Now response will be shown in console
         } catch (error) {
@@ -45,6 +47,34 @@ export default function AllNotes() {
     const handleLogout = async () => {
         localStorage.removeItem("token");
         router.replace("/");
+    }
+    const handleAddNote = async (event: any) => {
+        event.preventDefault();
+        const token = localStorage.getItem("token");
+        if (!token) {
+            router.replace("/");
+            return;
+        }
+        const form = event.target;
+        const title = form.title.value;
+        // const content = form.content.value;
+        try {
+            const response = await axios.post("/api/notes/addnote", {
+                username: username,
+                useremail: useremail,
+                title: title,
+                content: "",
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response);
+            // form.reset();
+            fetchNotes(token);
+        } catch (error) {
+            console.error("Error adding note:", error.message);
+        }
     }
     // setUserId(params.id); //this causes error of infinite render as it renders page on every update
     useEffect(() => {
@@ -88,10 +118,11 @@ export default function AllNotes() {
             {/* <h2>Hello, {username}</h2> */}
             <div className={styles.notesadd}>
                 <div>Add a note</div>
-                <form action="">
-                    <input type="hidden" name="username" value={username} />
+                <form onSubmit={handleAddNote}>
+                    {/* <input type="hidden" name="username" value={username} /> */}
+                    {/* <input type="hidden" name="useremail" value={useremail} /> */}
                     <input type="text" name="title" id="addtitle" placeholder="enter title" />
-                    <input type="hidden" name="content" id="addcont" placeholder="enter content" value="" />
+                    {/* <input type="hidden" name="content" id="addcont" placeholder="enter content" value="" /> */}
                     <input type="submit" value="Add Note" className={styles.addbtn} style={{ color: 'rgb(250, 177, 81)', }} />
                 </form>
             </div>

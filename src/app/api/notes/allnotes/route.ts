@@ -43,12 +43,11 @@ export async function GET(req: NextRequest) {
 
         try {
             const notes = await NoteModel.find({ email: user.email });
-
+            await disconnect();
             return NextResponse.json({ user: user.email, allNotes: notes });
         } catch (error) {
             return NextResponse.json({ message: "Error fetching notes", error }, { status: 500 });
         }
-        await disconnect();
     }
     catch (error: unknown) {  // Use `unknown` for proper typing
         if (error instanceof Error) {

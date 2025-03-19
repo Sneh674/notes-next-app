@@ -19,8 +19,12 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
         const users = await UserModel.findOne({ _id:user.id});
+        await disconnect();
         return NextResponse.json({ username: users.name });
-    } catch (error) {
-        return { error: error.message };
+    } catch (error: unknown) {  // Use `unknown` for proper typing
+        if (error instanceof Error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+        return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
     }
 }
