@@ -28,7 +28,7 @@
     font-family: "Spline Sans Mono", monospace;
     background-color: #3c3c3c;
     color: bisque;
-    padding: 5px;
+    padding: 10px;
     border-style: none;
     border-radius: 5px;
 }
@@ -185,6 +185,9 @@
     .notesadd>div{
         font-size: large;
     }
+    .logoutbutton{
+        padding: 8px;
+    }
     .notesmain{
         padding: 12px;
     }
@@ -259,6 +262,9 @@
 @media (max-width: 400px) {
     .notes{
         gap: 20px;
+    }
+    .logoutbutton{
+        padding: 5px;   
     }
 }
 @media (max-width: 360px) {
