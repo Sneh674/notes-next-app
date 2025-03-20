@@ -86,6 +86,8 @@ export default function AllNotes() {
     }
     const handleDeleteNote=async()=>{
         try {
+            setNotes([]);
+            setDeleteModal(false);
             const token = localStorage.getItem("token");
             if (!token) {
                 router.replace("/");
@@ -97,7 +99,6 @@ export default function AllNotes() {
                 },
             })
             console.log(response);
-            setDeleteModal(false);
             fetchNotes(token);
         } catch (error) {
             console.error("Error deleting note:", error.message);
@@ -173,10 +174,10 @@ export default function AllNotes() {
                 )}
             </div>
             {deleteModal && (
-                <div className={styles.modal}>
+                <div className={styles.modal} >
                     <div className={styles.modalcontent}>
                         <div>Are you sure you want to delete this note?</div>
-                        <div>
+                        <div className={styles.modalbuttons}>
                             <button onClick={() => setDeleteModal(false)}>Cancel</button>
                             <button onClick={()=>handleDeleteNote()}>Delete</button>
                         </div>
