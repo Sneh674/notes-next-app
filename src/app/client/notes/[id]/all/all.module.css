@@ -95,6 +95,15 @@
     gap: 10%;
     justify-content: right;
 }
+.edel>button{
+    background-color: #5f5f61;
+    color: rgb(205, 205, 207);
+    font-size: 20px;
+    border-style: none;
+    font-weight:600;
+    padding: 5px;
+    border-radius: 5px;
+}
 
 .notesadd{
     padding-left: 20px;
@@ -190,6 +199,9 @@
     }
     .ntext{
         height: 130px;
+    }
+    .edel>button{
+        font-size: 15px;
     }
 }
 
@@ -355,7 +367,12 @@
     }
     .edel{
         font-size: x-small;
-        gap: 6px;
+        gap: 4px;
+        flex-direction: column;
+    }
+    .edel>button{
+        /* font-size: xx-small;
+        padding: 3px; */
     }
 }
 

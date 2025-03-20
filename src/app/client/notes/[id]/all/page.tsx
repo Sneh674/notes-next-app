@@ -17,6 +17,7 @@ export default function AllNotes() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteId, setDeleteId] = useState("");
 
+
     const handleDeleteClick = (deleteId: string) => {
         setDeleteModal(true);
         setDeleteId(deleteId);
@@ -163,8 +164,8 @@ export default function AllNotes() {
                             <div className={styles.ntext}>{note.content}</div>
                             <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div>
                             <div className={styles.edel}>
-                                <a href={`/notes/edit/${note._id}`}>edit</a>
-                                <a href={`/notes/delete/${note._id}`}>delete</a>
+                                {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
+                                <button onClick={()=>{console.log(note)}}>edit</button>
                                 <button onClick={()=>handleDeleteClick(note._id)}>delete</button>
                             </div>
                         </div>
