@@ -3,7 +3,7 @@ import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { generateToken } from "@/helpers/jwt";
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
 function hashPassword(password: string): string {
     return crypto.createHash("sha256").update(password).digest("hex");
@@ -12,22 +12,22 @@ function generateOTP(): string {
     return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
 }
 
-async function sendOTPEmail(email: string, otp: string) {
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.MY_EMAIL,
-            pass: process.env.MY_PASSWORD,
-        },
-    });
+// async function sendOTPEmail(email: string, otp: string) {
+//     const transporter = nodemailer.createTransport({
+//         service: "gmail",
+//         auth: {
+//             user: process.env.MY_EMAIL,
+//             pass: process.env.MY_PASSWORD,
+//         },
+//     });
 
-    await transporter.sendMail({
-        from: process.env.MY_EMAIL,
-        to: email,
-        subject: "Your OTP Code",
-        text: `Your OTP code is: ${otp}. It is valid for 10 minutes.`,
-    });
-}
+//     await transporter.sendMail({
+//         from: process.env.MY_EMAIL,
+//         to: email,
+//         subject: "Your OTP Code",
+//         text: `Your OTP code is: ${otp}. It is valid for 10 minutes.`,
+//     });
+// }
 
 export async function POST(request: NextRequest) {
     try {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
         }
 
         const otp = generateOTP();
-        await sendOTPEmail(uemail, otp);
+        // await sendOTPEmail(uemail, otp);
         const createdUser = await userModel.create({
             name: uname,
             email: uemail,
@@ -66,10 +66,17 @@ export async function POST(request: NextRequest) {
 
         // await disconnect();
         return response;
-    } catch (error: any) {
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            await disconnect();
+            return NextResponse.json(
+                { error: error.message },
+                { status: 500 }
+            );
+        }
         await disconnect();
         return NextResponse.json(
-            { error: error.message },
+            { error: "An unknown error occurred" },
             { status: 500 }
         );
     }
