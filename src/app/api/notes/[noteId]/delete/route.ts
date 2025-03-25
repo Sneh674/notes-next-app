@@ -3,12 +3,14 @@ import { connect, disconnect } from "@/dbConfig/dbConfig";
 import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(request: NextRequest, context: { params: { noteId: string } }) {
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export async function DELETE(request: NextRequest, { params }: { params: { noteId: string } }) {
     try {
         await connect();
 
         // Extract `noteId` from params
-        const { noteId } = context.params;
+        const { noteId } = params;
         if (!noteId) {
             return NextResponse.json({ message: "Note ID is required" }, { status: 400 });
         }
