@@ -120,7 +120,7 @@ export default function AllNotes() {
                 router.replace("/");
                 return;
             }
-            const response = await axios.delete(`/api/notes/${deleteId}/delete`, {
+            const response = await axios.delete(`/api/notes/delete/${deleteId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
