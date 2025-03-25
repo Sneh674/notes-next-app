@@ -23,9 +23,10 @@ const SignUp: React.FC = () => {
             localStorage.setItem("token", res.data.token);
             setErrorMsg("");
             router.push("/");
-        } catch (error: any) {
-            if (error.response) {
-                setErrorMsg(error.response.data.error || "Login failed");
+        } catch (error: unknown) {
+            if (typeof error === "object" && error !== null && "response" in error) {
+                const errObj = error as { response: { data?: { error?: string } } };
+                setErrorMsg(errObj.response.data?.error || "Login failed");
             } else {
                 setErrorMsg("An unexpected error occurred");
             }

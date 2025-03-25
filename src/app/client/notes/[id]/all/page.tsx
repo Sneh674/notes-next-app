@@ -8,8 +8,20 @@ import styles from "./all.module.css";
 // import { set } from "mongoose";
 
 export default function AllNotes() {
+    interface Note {
+        _id: string;
+        title: string;
+        content: string;
+        email: string;
+        name: string;
+        createdAt: string;
+        updatedAt: string;
+        __v: number;
+    }
+
+
     const [userId, setUserId] = useState("")
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState<Note[]>([]);
     const [useremail, setUseremail] = useState("");
     const [username, setUsername] = useState("");
     const params = useParams();
@@ -33,10 +45,13 @@ export default function AllNotes() {
             setUsername(response.data.username);
             setUseremail(response.data.email);
             console.log(response.data);
-            return response.data;
-            // console.log(response); // Now response will be shown in console
+            return null; // Explicitly return null instead of `return;`
         } catch (error) {
-            console.error("Error fetching user:", error.message);
+            if (error instanceof Error) {
+                console.error("Error fetching user:", error.message);
+            } else {
+                console.error("Error fetching user:", error);
+            }
         }
     }
     const fetchNotes = async (token: string) => {
@@ -47,45 +62,56 @@ export default function AllNotes() {
                 },
             });
             setNotes(response.data.allNotes);
-            return response.data;
+            // console.log(response.data.allNotes);
+            return null; // Explicitly return null instead of `return;`
             // console.log(response); // Now response will be shown in console
         } catch (error) {
-            console.error("Error fetching notes:", error.message);
+            if (error instanceof Error) {
+                console.error("Error fetching notes:", error.message);
+            } else {
+                console.error("Error fetching notes:", error);
+            }
         }
     };
     const handleLogout = async () => {
         localStorage.removeItem("token");
         router.replace("/");
     }
-    const handleAddNote = async (event: any) => {
+    const handleAddNote = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const token = localStorage.getItem("token");
         if (!token) {
             router.replace("/");
             return;
         }
-        const form = event.target;
-        const title = form.title.value;
-        // const content = form.content.value;
+
+        const form = event.currentTarget;
+        const title = (form.elements.namedItem("title") as HTMLInputElement)?.value || "";
+
         try {
-            const response = await axios.post("/api/notes/addnote", {
-                username: username,
-                useremail: useremail,
-                title: title,
-                content: "",
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
+            const response = await axios.post(
+                "/api/notes/addnote",
+                {
+                    username,
+                    useremail,
+                    title,
+                    content: "",
                 },
-            });
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             console.log(response);
             form.reset();
             fetchNotes(token);
         } catch (error) {
-            console.error("Error adding note:", error.message);
+            console.error("Error adding note:", (error as Error).message);
         }
-    }
-    const handleDeleteNote=async()=>{
+    };
+
+    const handleDeleteNote = async () => {
         try {
             setNotes([]);
             setDeleteModal(false);
@@ -102,40 +128,47 @@ export default function AllNotes() {
             console.log(response);
             fetchNotes(token);
         } catch (error) {
-            console.error("Error deleting note:", error.message);
+            if (error instanceof Error) {
+                console.error("Error deleting note:", error.message);
+            } else {
+                console.error("Error deleting note:", error);
+            }
         }
     }
     // setUserId(params.id); //this causes error of infinite render as it renders page on every update
     useEffect(() => {
-        console.log({ "paramsId": params.id });
+        console.log({ paramsId: params.id });
+
         if (params.id && params.id !== userId) {
-            setUserId(params.id);
+            setUserId(params.id as string);
         }
+
         const token = localStorage.getItem("token");
         if (!token) {
             router.replace("/"); // Redirect if no token
             return;
         }
-        console.log("trial1")
+
+        console.log("trial1");
+
         const fetchData = async (token: string) => {
             try {
-                console.log("trial2")
+                console.log("trial2");
                 await fetchUser(token);
-                // const userResponse = await fetchUser(token);
-                // console.log(userResponse);
+
                 try {
                     await fetchNotes(token);
-                    // const notesResponse = await fetchNotes(token);
-                    // console.log(notesResponse);
                 } catch (error) {
-                    console.error("Error fetching notes:", error.message);
+                    console.error("Error fetching notes:", (error as Error).message);
                 }
             } catch (error) {
-                console.error("Error fetching user:", error.message);
+                console.error("Error fetching user:", (error as Error).message);
             }
-        }
+        };
+
         fetchData(token);
-    }, [params.id]);
+    }, [params.id, router, userId]);
+
 
     return (
         <div className={styles.allnotesmain}>
@@ -159,14 +192,14 @@ export default function AllNotes() {
             <div className={styles.notes}>
                 {notes.length > 0 ? (
                     notes.map((note) => (
-                        <div className={styles.note} key={note._id}>
+                        <div className={styles.note} key={note._id as string}>
                             <div className={styles.ntitle}>{note.title}</div>
                             <div className={styles.ntext}>{note.content}</div>
                             <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div>
                             <div className={styles.edel}>
                                 {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
-                                <button onClick={()=>{console.log(note)}}>edit</button>
-                                <button onClick={()=>handleDeleteClick(note._id)}>delete</button>
+                                <button onClick={() => { console.log(note) }}>edit</button>
+                                <button onClick={() => handleDeleteClick(note._id)}>delete</button>
                             </div>
                         </div>
                     ))
@@ -180,7 +213,7 @@ export default function AllNotes() {
                         <div>Are you sure you want to delete this note?</div>
                         <div className={styles.modalbuttons}>
                             <button onClick={() => setDeleteModal(false)}>Cancel</button>
-                            <button onClick={()=>handleDeleteNote()}>Delete</button>
+                            <button onClick={() => handleDeleteNote()}>Delete</button>
                         </div>
                     </div>
                 </div>

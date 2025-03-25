@@ -33,7 +33,9 @@ export async function GET(req: NextRequest) {
             await disconnect();
             return NextResponse.json({ user: user.email, allNotes: notes });
         } catch (error) {
-            return NextResponse.json({ message: "Error fetching notes", error }, { status: 500 });
+            console.error("Error fetching notes:", error); // Proper logging
+            return NextResponse.json({ message: "Error fetching notes", error: error instanceof Error ? error.message : "Unknown error" }, { status: 500 });
+
         }
     }
     catch (error: unknown) {  // Use `unknown` for proper typing

@@ -12,7 +12,7 @@ export default function Home() {
     lemail: "",
     lpassword: "",
   })
-  const [errorMsg, setErrorMsg] = useState()
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const handleLogin = async (e: React.FormEvent) => {
     try {
@@ -29,7 +29,7 @@ export default function Home() {
       router.push(`client/notes/${response.data.user._id}/all`)
 
     } catch (error) {
-      if (error.response) {
+      if (axios.isAxiosError(error) && error.response) {
         // Extract error message from server response
         setErrorMsg(error.response.data.error || "Login failed");
       } else {
