@@ -5,12 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export async function DELETE(request: NextRequest, { params }: { params: { noteId: string } }) {
+export async function DELETE(request: NextRequest, context: { params: { noteId: string } }) {
     try {
         await connect();
 
         // Extract `noteId` from params
-        const { noteId } = params;
+        const { noteId } = context.params;
         if (!noteId) {
             return NextResponse.json({ message: "Note ID is required" }, { status: 400 });
         }
@@ -44,3 +44,4 @@ export async function DELETE(request: NextRequest, { params }: { params: { noteI
         return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
     }
 }
+
