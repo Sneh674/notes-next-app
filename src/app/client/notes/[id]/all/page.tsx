@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import styles from "./all.module.css";
+import { useNote } from "@/app/context/NoteContext";
 // import { set } from "mongoose";
 
 export default function AllNotes() {
@@ -19,7 +20,6 @@ export default function AllNotes() {
         __v: number;
     }
 
-
     const [userId, setUserId] = useState("")
     const [notes, setNotes] = useState<Note[]>([]);
     const [useremail, setUseremail] = useState("");
@@ -29,12 +29,25 @@ export default function AllNotes() {
     const [deleteModal, setDeleteModal] = useState(false);
     const [deleteId, setDeleteId] = useState("");
 
+    // const [noteId, setNoteId] = useState("");
+    const noteContext = useNote();
+    if (!noteContext) {
+        throw new Error("useNote must be used within a NoteProvider");
+    }
+    const { setNoteId } = noteContext;
 
     const handleDeleteClick = (deleteId: string) => {
         setDeleteModal(true);
         setDeleteId(deleteId);
     }
-
+    const handleEditClick = (id: string) => {
+        setNoteId(id); // Set the selected noteId in context
+        console.log("Note ID set:", id);
+    };
+    const handleSeeMoreClick = (id: string) => () => {
+        setNoteId(id); // Set the selected noteId in context
+        console.log("Note ID set:", id);
+    };
     const fetchUser = async (token: string) => {
         try {
             const response = await axios.get("/api/user/getuser", {
@@ -195,10 +208,11 @@ export default function AllNotes() {
                         <div className={styles.note} key={note._id as string}>
                             <div className={styles.ntitle}>{note.title}</div>
                             <div className={styles.ntext}>{note.content}</div>
-                            <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div>
+                            {/* <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div> */}
+                            <button className={styles.smlink} onClick={handleSeeMoreClick(note._id)}>See More</button>
                             <div className={styles.edel}>
                                 {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
-                                <button onClick={() => { console.log(note) }}>edit</button>
+                                <button onClick={() => { handleEditClick(note._id) }}>edit</button>
                                 <button onClick={() => handleDeleteClick(note._id)}>delete</button>
                             </div>
                         </div>

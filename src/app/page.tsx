@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Home() {
-  const router=useRouter();
+  const router = useRouter();
   const [details, setDetails] = useState({
     lemail: "",
     lpassword: "",
@@ -46,7 +46,7 @@ export default function Home() {
         <form onSubmit={handleLogin} className={styles.logInForm}>
           <input type="text" name="lemail" required placeholder="Enter email" onChange={(e) => setDetails((prev) => ({ ...prev, lemail: e.target.value }))} />
           <input type="password" name="lpassword" required placeholder="Enter password" onChange={(e) => setDetails((prev) => ({ ...prev, lpassword: e.target.value }))} />
-          <input type="submit" value="Log User" id="cubtn" className={styles.cubtn}/>
+          <input type="submit" value="Log User" id="cubtn" className={styles.cubtn} />
           <div className={styles.errormsg}>{errorMsg}</div>
         </form>
         <h1>New user:</h1>
