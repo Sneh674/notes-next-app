@@ -47,6 +47,7 @@ export default function AllNotes() {
     const handleSeeMoreClick = (id: string) => () => {
         setNoteId(id); // Set the selected noteId in context
         console.log("Note ID set:", id);
+        router.push(`seemore`);
     };
     const fetchUser = async (token: string) => {
         try {
