@@ -25,11 +25,12 @@ body{
     padding: 5px;
     border-radius: 5px;
     font-size: large;
+    border: #c1ad2e 2px solid;
 }
 .linkToNotes:hover {
     background-color: #c1ad2e;
+    font-weight: 700;
     color: #505050;
-    padding: 7px;
 }
 
 .fullcont {

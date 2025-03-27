@@ -4,21 +4,19 @@ import { useState, useEffect, } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
-import { useNote } from "@/app/context/NoteContext";
-import Link from "next/link";
+// import { useNote } from "@/app/context/NoteContext";
 import styles from "./seemore.module.css";
-// import styles from "@/app/client/notes/[id]/seemore/seemore.module.css";
 
 export default function SeeMore() {
     const params = useParams();
     const router = useRouter();
     const [note, setNote] = useState({ title: "", content: "" });
 
-    const noteContext = useNote();
-    if (!noteContext) {
-        throw new Error("useNote must be used within a NoteProvider");
-    }
-    const { noteId, setNoteId } = noteContext;
+    // const noteContext = useNote();
+    // if (!noteContext) {
+    //     throw new Error("useNote must be used within a NoteProvider");
+    // }
+    // const { noteId, setNoteId } = noteContext;
 
     useEffect(() => {
         console.log("Params:", params);
@@ -30,7 +28,9 @@ export default function SeeMore() {
             router.replace("/");
             return;
         }
+        const noteId = localStorage.getItem("noteId");
         const fetchNote = async () => {
+            console.log("Fetching note:", noteId);
             try {
                 const response = await axios.get(`/api/notes/shownote/${noteId}`, {
                     headers: {
@@ -47,10 +47,12 @@ export default function SeeMore() {
             }
         };
         fetchNote();
-    }, [router, params, note, noteId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);//router, params, note, noteId
     return (
         <div className={styles.fullmain}>
-            <Link href={`all`} onClick={() => { setNoteId("") }} className={styles.linkToNotes}>Go Back</Link>
+            {/* <Link href={`all`} onClick={(e) => { e.preventDefault();setNoteId(""); }} className={styles.linkToNotes}>Go Back</Link> */}
+            <button onClick={(e) => { e.preventDefault(); localStorage.removeItem("noteId"); router.replace("all")}} className={styles.linkToNotes}>Go Back</button>
             <div className={styles.fullcont}>
                 <div className={styles.fulltitle}>{note.title || "Title"}</div>
                 {/* <% let formatted=ftext.replace(/\n/g, '<br>') %></br> */}

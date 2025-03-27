@@ -5,7 +5,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import styles from "./all.module.css";
-import { useNote } from "@/app/context/NoteContext";
+// import { useNote } from "@/app/context/NoteContext";
 // import { set } from "mongoose";
 
 export default function AllNotes() {
@@ -30,22 +30,24 @@ export default function AllNotes() {
     const [deleteId, setDeleteId] = useState("");
 
     // const [noteId, setNoteId] = useState("");
-    const noteContext = useNote();
-    if (!noteContext) {
-        throw new Error("useNote must be used within a NoteProvider");
-    }
-    const { setNoteId } = noteContext;
+    // const noteContext = useNote();
+    // if (!noteContext) {
+    //     throw new Error("useNote must be used within a NoteProvider");
+    // }
+    // const { setNoteId } = noteContext;
 
     const handleDeleteClick = (deleteId: string) => {
         setDeleteModal(true);
         setDeleteId(deleteId);
     }
     const handleEditClick = (id: string) => {
-        setNoteId(id); // Set the selected noteId in context
+        // setNoteId(id); // Set the selected noteId in context
+        localStorage.setItem("noteId", id);
         console.log("Note ID set:", id);
     };
     const handleSeeMoreClick = (id: string) => () => {
-        setNoteId(id); // Set the selected noteId in context
+        // setNoteId(id); // Set the selected noteId in context
+        localStorage.setItem("noteId", id);
         console.log("Note ID set:", id);
         router.push(`seemore`);
     };
@@ -162,8 +164,6 @@ export default function AllNotes() {
             router.replace("/"); // Redirect if no token
             return;
         }
-
-        console.log("trial1");
 
         const fetchData = async (token: string) => {
             try {
