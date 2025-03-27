@@ -7,13 +7,12 @@ import { useParams } from "next/navigation";
 import { useNote } from "@/app/context/NoteContext";
 import Link from "next/link";
 import styles from "./seemore.module.css";
-import { set } from "mongoose";
 // import styles from "@/app/client/notes/[id]/seemore/seemore.module.css";
 
 export default function SeeMore() {
     const params = useParams();
     const router = useRouter();
-    const [note, setNote] = useState({title:"", content:""});
+    const [note, setNote] = useState({ title: "", content: "" });
 
     const noteContext = useNote();
     if (!noteContext) {
@@ -40,7 +39,7 @@ export default function SeeMore() {
                 });
                 console.log("Note fetched:", response.data);
                 // setNote(response.data);
-                setNote((prevNote)=>({...prevNote, title: response.data.note.title, content: response.data.note.content}));
+                setNote((prevNote) => ({ ...prevNote, title: response.data.note.title, content: response.data.note.content }));
                 console.log("Note set:", note);
                 // setNote(response.data.note);
             } catch (error) {
@@ -51,10 +50,14 @@ export default function SeeMore() {
     }, [router, params, note, noteId]);
     return (
         <div className={styles.fullmain}>
-            <Link href={`all`} onClick={()=>{setNoteId("")}} className={styles.linkToNotes}>Go Back</Link>
+            <Link href={`all`} onClick={() => { setNoteId("") }} className={styles.linkToNotes}>Go Back</Link>
             <div className={styles.fullcont}>
-                <div className={styles.fulltitle}>{note.title  || "Title"}</div>
-                <div className={styles.fulltext}>{note.content || "Text"}</div>
+                <div className={styles.fulltitle}>{note.title || "Title"}</div>
+                {/* <% let formatted=ftext.replace(/\n/g, '<br>') %></br> */}
+                {/* <div className={styles.fulltext}>{note.content.replace(/\n/g,'<br>') || "Text"}</div> */}
+                <div className={styles.fulltext}
+                    dangerouslySetInnerHTML={{ __html: note.content.replace(/\n/g, '<br>') || "Text"}}>
+                </div>
             </div>
         </div>
     )

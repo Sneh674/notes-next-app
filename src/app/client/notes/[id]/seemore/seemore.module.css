@@ -12,14 +12,24 @@ body{
     font-size: large;
 } */
 .fullmain{
-    background-color: #fff;
+    background-color: #505050;
     min-height: 100%;
     padding: 30px;
 }
 
 .linkToNotes {
     font-family: "Spline Sans Mono", monospace;
+    color: #ffed75;
+    text-decoration: none;
+    background-color: #5d5d5d;
+    padding: 5px;
+    border-radius: 5px;
     font-size: large;
+}
+.linkToNotes:hover {
+    background-color: #c1ad2e;
+    color: #505050;
+    padding: 7px;
 }
 
 .fullcont {
