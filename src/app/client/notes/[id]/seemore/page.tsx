@@ -6,10 +6,14 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import { useNote } from "@/app/context/NoteContext";
 import Link from "next/link";
+import styles from "./seemore.module.css";
+import { set } from "mongoose";
+// import styles from "@/app/client/notes/[id]/seemore/seemore.module.css";
 
 export default function SeeMore() {
     const params = useParams();
     const router = useRouter();
+    const [note, setNote] = useState({title:"", content:""});
 
     const noteContext = useNote();
     if (!noteContext) {
@@ -35,17 +39,23 @@ export default function SeeMore() {
                     },
                 });
                 console.log("Note fetched:", response.data);
+                // setNote(response.data);
+                setNote((prevNote)=>({...prevNote, title: response.data.note.title, content: response.data.note.content}));
+                console.log("Note set:", note);
                 // setNote(response.data.note);
             } catch (error) {
                 console.error("An error occurred while fetching the note:", error);
             }
         };
         fetchNote();
-    }, [router, params]);
+    }, [router, params, note, noteId]);
     return (
-        <div>
-            <Link href={`all`}>Go Back</Link>
-            <h1>Seemore</h1>
+        <div className={styles.fullmain}>
+            <Link href={`all`} onClick={()=>{setNoteId("")}} className={styles.linkToNotes}>Go Back</Link>
+            <div className={styles.fullcont}>
+                <div className={styles.fulltitle}>{note.title  || "Title"}</div>
+                <div className={styles.fulltext}>{note.content || "Text"}</div>
+            </div>
         </div>
     )
 }
