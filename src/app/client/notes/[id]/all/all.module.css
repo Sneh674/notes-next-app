@@ -3,8 +3,9 @@
     margin: 0%;
     color: white;
 } */
-.allnotesmain{
+.allnotesmain {
     min-height: 100vh;
+    max-width: 100vw;
     /* width: 100vw; */
     font-family: "Spline Sans Mono", monospace;
     background-color: black;
@@ -12,19 +13,22 @@
     /* margin: 0px; */
 }
 
-.notesmain{
+.notesmain {
     padding: 20px;
 }
-.noteshead{
+
+.noteshead {
     font-family: "Spline Sans Mono", monospace;
     font-size: xx-large;
     color: #969494;
     margin: 20px;
 }
-.loglink{
+
+.loglink {
     color: bisque;
 }
-.logoutbutton{
+
+.logoutbutton {
     font-family: "Spline Sans Mono", monospace;
     background-color: #3c3c3c;
     color: bisque;
@@ -33,26 +37,25 @@
     border-radius: 5px;
 }
 
-.notes{
-    /* width: 100%;
-    max-width: 100%;
+.notes {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    box-sizing: border-box; ✅ Prevents extra width issues
-    gap: 20px;
-    padding: 30px; */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 30px;
+    box-sizing: border-box;
 
-    display: flex;
+    /* display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 2%;
+    padding: 2%; */
     /* font-family: "Playwrite GB S", cursive; */
 }
 
-.note{
-    width: 190px;
+.note {
+    /* width: 190px; */
     text-wrap: wrap;
-    background-color: rgb(50, 49, 49);;
+    background-color: rgb(50, 49, 49);
+    ;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -62,7 +65,8 @@
     /* max-width: 100%; Ensures it doesn't break grid */
 
 }
-.ntitle{
+
+.ntitle {
     background-color: rgb(50, 49, 49);
     /* border-radius: 20px; */
     font-size: 30px;
@@ -71,7 +75,8 @@
     font-family: "Playwrite GB S", cursive;
     overflow: hidden;
 }
-.ntext{
+
+.ntext {
     background-color: rgb(50, 49, 49);
     font-size: 23px;
     height: 150px;
@@ -79,65 +84,81 @@
     font-family: "Playwrite GB S", cursive;
     color: rgb(196, 196, 148);
 }
-.note>a{
+
+.note>a {
     background-color: rgb(50, 49, 49);
     color: blue;
     display: flex;
     justify-content: right;
 }
-.smlink{
-    display: flex;
-    justify-content: right;
+
+.smlink {
+    /* display: flex;
+    justify-content: right; */
+    background-color: #efd475;
+    width: max-content;
+    padding: 4px;
+    border-radius: 5px;
+    border: rgb(232, 218, 71) solid 2px;
+    font-weight: 700;
 }
-.edel{
+
+.edel {
     display: flex;
     background-color: rgb(50, 49, 49);
     gap: 10%;
     justify-content: right;
+    margin-bottom: 10px;
 }
-.edel>button{
+
+.edel>button {
     background-color: #5f5f61;
     color: rgb(205, 205, 207);
     font-size: 20px;
     border-style: none;
-    font-weight:600;
+    font-weight: 600;
     padding: 5px;
     border-radius: 5px;
 }
 
-.notesadd{
+.notesadd {
     padding-left: 20px;
     margin-bottom: 25px;
 }
-.notesadd>div{
+
+.notesadd>div {
     margin-bottom: 10px;
     font-size: x-large;
 }
-.notesadd>form{
+
+.notesadd>form {
     width: 500px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.notesadd>form>input{
+
+.notesadd>form>input {
     border-radius: 12px;
     padding: 10px;
     color: #5f5f61;
     font-family: "Spline Sans Mono", monospace;
 }
-.notesadd>form>textarea{
+
+.notesadd>form>textarea {
     border-radius: 12px;
     padding: 10px;
     color: #5f5f61;
     font-family: "Spline Sans Mono", monospace;
 }
-.addbtn{
+
+.addbtn {
     color: rgb(205, 205, 207);
     width: 150px;
     background-color: #5f5f61;
 }
 
-.modal{
+.modal {
     position: fixed;
     /* background: rgb(120, 120, 120); */
     display: flex;
@@ -151,7 +172,8 @@
     z-index: 1;
     padding: 15px;
 }
-.modalcontent{
+
+.modalcontent {
     background-color: rgb(50, 49, 49);
     height: 20%;
     padding: 20px;
@@ -162,12 +184,14 @@
     flex-direction: column;
     gap: 10px;
 }
-.modalbuttons{
+
+.modalbuttons {
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
-.modalbuttons>button{
+
+.modalbuttons>button {
     padding: 10px;
     border-radius: 10px;
     background-color: #5f5f61;
@@ -176,280 +200,385 @@
 }
 
 @media (max-width: 750px) {
-    .notesadd>div{
+    .notesadd>div {
         font-size: larger;
     }
-    .notesmain{
+
+    .notesmain {
         padding: 15px;
     }
-    .noteshead{
+
+    .noteshead {
         margin: 15px;
     }
-    .notes{
-        grid-template-columns: repeat(4, 1fr); 
-        gap: 30px;
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        gap: 20px;
+        padding: 25px;
     }
-    .note{
-        /* width:100%; */
-        width: 170px;
-    }
-    .ntitle{
+
+    /* .note {
+        /* width: 170px;
+    } */
+
+    .ntitle {
         font-size: large;
         height: 80px;
     }
-    .ntext{
+
+    .ntext {
         height: 130px;
     }
-    .edel>button{
+
+    .edel>button {
         font-size: 15px;
+    }
+
+    .edel {
+        margin-bottom: 7px;
     }
 }
 
 @media (max-width: 630px) {
-    .notesadd>div{
+    .notesadd>div {
         font-size: larger;
     }
-    .notesmain{
+
+    .notesmain {
         padding: 15px;
     }
-    .noteshead{
+
+    .noteshead {
         margin: 15px;
     }
-    .notes{
-        gap: 60px;
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 20px;
+        padding: 25px;
     }
-    .note{
+
+    /* .note {
         width: 200px;
-    }
-    .ntitle{
+    } */
+
+    .ntitle {
         font-size: large;
         height: 80px;
     }
-    .ntext{
+
+    .ntext {
         height: 130px;
     }
 }
 
 @media (max-width: 520px) {
-    .notesadd>div{
+    .notesadd>div {
         font-size: large;
     }
-    .logoutbutton{
+
+    .logoutbutton {
         padding: 8px;
     }
-    .notesmain{
+
+    .notesmain {
         padding: 12px;
     }
-    .noteshead{
+
+    .noteshead {
         margin: 12px;
     }
-    .notes{
-        gap: 60px;
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+        padding: 20px;
     }
-    .note{
-        width: 170px;
+
+    .note {
+        /* width: 170px; */
         padding: 15px;
     }
-    .ntitle{
+
+    .ntitle {
         font-size: large;
         height: 65px;
     }
-    .ntext{
+
+    .ntext {
         height: 90px;
         font-size: medium;
     }
-    .notesadd>form{
+
+    .notesadd>form {
         width: 350px;
         gap: 7px;
     }
 }
+
 @media (max-width: 490px) {
-    .notes{
-        gap: 20px;
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+        padding: 20px;
     }
 }
+
 @media (max-width: 440px) {
-    .notesadd>div{
+    .notesadd>div {
         font-size: medium;
     }
-    .notesmain{
+
+    .notesmain {
         padding: 10px;
     }
-    .noteshead{
+
+    .noteshead {
         margin: 10px;
         font-size: x-large;
     }
-    .notes{
-        gap: 50px;
-    }
-    .note{
-        width: 130px;
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
         padding: 15px;
     }
-    .ntitle{
+
+    .note {
+        /* width: 130px; */
+        padding: 15px;
+    }
+
+    .ntitle {
         font-size: medium;
         height: 50px;
     }
-    .ntext{
+
+    .ntext {
         height: 70px;
         font-size: small;
     }
-    .notesadd>form{
+
+    .notesadd>form {
         width: 300px;
         gap: 6px;
     }
-    .addbtn{
+
+    .addbtn {
         width: 100px;
     }
-    .smlink{
+
+    .smlink {
         font-size: small;
     }
-    .edel{
+
+    .edel {
         font-size: small;
+        margin-bottom: 5px;
+        flex-direction: column;
+        gap: 7px;
     }
 }
+
 @media (max-width: 400px) {
-    .notes{
-        gap: 20px;
-    }
-    .logoutbutton{
-        padding: 5px;   
-    }
-}
-@media (max-width: 360px) {
-    .notesadd>div{
-        font-size: medium;
-    }
-    .notesmain{
-        padding: 8px;
-    }
-    .noteshead{
-        margin: 8px;
-    }
-    .notes{
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
         gap: 10px;
-    }
-    .note{
-        border-radius: 10px;
-        width: 75px;
         padding: 10px;
     }
-    .ntitle{
+
+    .logoutbutton {
+        padding: 5px;
+    }
+
+    .smlink{
+        padding: 3px;
+        font-size: x-small;
+    }
+    .edel>button {
+        font-size: small;
+        padding: 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .notesadd>div {
+        font-size: medium;
+    }
+
+    .notesmain {
+        padding: 8px;
+    }
+
+    .noteshead {
+        margin: 8px;
+    }
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .note {
+        border-radius: 10px;
+        /* width: 75px; */
+        padding: 10px;
+    }
+
+    .ntitle {
         font-size: x-small;
         height: 25px;
     }
-    .ntext{
+
+    .ntext {
         height: 50px;
         font-size: x-small;
     }
-    .notesadd{
+
+    .notesadd {
         padding-left: 10px;
         margin-bottom: 15px;
     }
-    .notesadd>form{
+
+    .notesadd>form {
         width: 270px;
         gap: 6px;
     }
-    .notesadd>form>input{
+
+    .notesadd>form>input {
         border-radius: 10px;
         padding: 7px;
     }
-    .notesadd>form>textarea{
+
+    .notesadd>form>textarea {
         border-radius: 10px;
         padding: 7px;
     }
-    .addbtn{
+
+    .addbtn {
         width: 80px;
         font-size: small;
     }
-    .smlink{
+
+    .smlink {
         font-size: x-small;
     }
-    .edel{
+
+    .edel {
+        margin-bottom: 4px;
         font-size: x-small;
         gap: 4px;
         flex-direction: column;
     }
+
     .edel>button{
-        /* font-size: xx-small;
-        padding: 3px; */
+        font-size: xx-small;
+        padding: 3px;
+    }
+    .smlink{
+        padding: 2px;
+        font-size: xx-small;
     }
 }
 
 @media (max-width: 320px) {
-    .notesadd>div{
+    .notesadd>div {
         font-size: smaller;
     }
-    .notesmain{
+
+    .notesmain {
         padding: 6px;
     }
-    .loglink{
+
+    .loglink {
         font-size: x-small;
     }
-    .noteshead{
+
+    .noteshead {
         margin: 6px;
         font-size: large;
     }
-    .notes{
-        gap: 6px;
-    }
-    .note{
-        border-radius: 10px;
-        width: 75px;
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+        gap: 10px;
         padding: 10px;
     }
-    .ntitle{
+    .note {
+        border-radius: 10px;
+        /* width: 75px; */
+        padding: 10px;
+    }
+
+    .ntitle {
         font-size: xx-small;
         height: 25px;
     }
-    .ntext{
+
+    .ntext {
         height: 50px;
         font-size: xx-small;
     }
-    .notesadd{
+
+    .notesadd {
         padding-left: 10px;
         margin-bottom: 15px;
     }
-    .notesadd>form{
+
+    .notesadd>form {
         width: 270px;
         gap: 6px;
     }
-    .notesadd>form>input{
+
+    .notesadd>form>input {
         border-radius: 10px;
         padding: 7px;
     }
-    .notesadd>form>textarea{
+
+    .notesadd>form>textarea {
         border-radius: 10px;
         padding: 7px;
     }
-    .addbtn{
+
+    .addbtn {
         width: 80px;
         font-size: small;
     }
-    .smlink{
+
+    .smlink {
         font-size: xx-small;
     }
-    .edel{
+
+    .edel {
         font-size: xx-small;
         gap: 6px;
     }
 }
+
 @media (max-width: 310px) {
-    .notesadd>form{
+    .notesadd>form {
         width: 200px;
     }
-    .notes{
+
+    .notes {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
         gap: 5px;
+        padding: 10px;
     }
-    .note{
+
+    /* .note {
         width: 70px;
-    }
+    } */
 }
-@media (max-width: 310px) {
-    .notes{
+
+/* @media (max-width: 310px) {
+    .notes {
         gap: 20px;
     }
-    .note{
+
+    .note {
         width: 90px;
     }
-}
+} */
