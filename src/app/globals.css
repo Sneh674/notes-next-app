@@ -57,7 +57,6 @@ html, body, #__next {
   color: white; /* Optional */
 }
 
-
 @media (max-width: 750px) {
   body {
     padding: 0px;

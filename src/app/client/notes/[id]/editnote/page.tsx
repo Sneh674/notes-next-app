@@ -59,6 +59,7 @@ export default function Edit() {
                 },
             });
             console.log("Note edited:", response.data);
+            localStorage.removeItem("noteId");
             router.replace("all");
         } catch (error) {
             console.error("An error occurred while editing the note:", error);
@@ -68,10 +69,12 @@ export default function Edit() {
     return (
         <div className={styles.editmain}>
             <button onClick={(e) => { e.preventDefault(); localStorage.removeItem("noteId"); router.replace("all") }} className={styles.linkToNotes}>Go Back</button>
-            <form onSubmit={handleEditSubmit}>
-                <input type="text" value={note.title} onChange={(e) => setNote((prevNote) => ({ ...prevNote, title: e.target.value }))} />
-                <textarea value={note.content} onChange={(e) => setNote((prevNote) => ({ ...prevNote, content: e.target.value }))} />
-                <input type="submit" value="Edit Note" />
+            <form onSubmit={handleEditSubmit} className={styles.editForm}>
+                <label htmlFor="title">Title:</label>
+                <textarea value={note.title} onChange={(e) => setNote((prevNote) => ({ ...prevNote, title: e.target.value }))} name="title"/>
+                <label htmlFor="content">Content:</label>
+                <textarea value={note.content} rows={22} onChange={(e) => setNote((prevNote) => ({ ...prevNote, content: e.target.value }))} name="content"/>
+                <input type="submit" value="Edit Note" className={styles.editSubmit}/>
             </form>
         </div>
     )
