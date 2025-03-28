@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./home.module.css"
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,37 @@ export default function Home() {
       console.log("Error:", error);
     }
   }
+
+  const verifyToken = async (token: string) => {
+    try {
+      const response = await axios.get("/api/jwt/verify", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("User:", response.data);
+      console.log(response.data.user.id);
+      router.push(`client/notes/${response.data.user.id}/all`)
+      return response.data;
+    } catch (error) {
+      console.error("Error verifying token:", error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if(token){
+      verifyToken(token)
+      // router.push(`client/notes/${user.id}/all`)
+    }
+    // const user = token ? verifyToken(token) : null;
+    // console.log(user);
+    // if (token) {
+    //   router.push("/client/notes");
+    // }
+  }, [])
   return (
     <div className={styles.homemain}>
       <h2 className={styles.h2}>Welcome to our website</h2>
