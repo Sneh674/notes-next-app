@@ -44,6 +44,7 @@ export default function AllNotes() {
         // setNoteId(id); // Set the selected noteId in context
         localStorage.setItem("noteId", id);
         console.log("Note ID set:", id);
+        router.push(`editnote`);
     };
     const handleSeeMoreClick = (id: string) => () => {
         // setNoteId(id); // Set the selected noteId in context
@@ -213,7 +214,7 @@ export default function AllNotes() {
                             <button className={styles.smlink} onClick={handleSeeMoreClick(note._id)}>See More</button>
                             <div className={styles.edel}>
                                 {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
-                                <button onClick={() => { handleEditClick(note._id) }}>edit</button>
+                                <button onClick={() => handleEditClick(note._id)}>edit</button>
                                 <button onClick={() => handleDeleteClick(note._id)}>delete</button>
                             </div>
                         </div>
