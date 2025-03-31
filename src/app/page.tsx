@@ -71,7 +71,7 @@ export default function Home() {
   }, [])
   return (
     <div className={styles.homemain}>
-      <h2 className={styles.h2}>Welcome to our website</h2>
+      <h2 className={styles.h2}>Welcome to your Notes</h2>
       <div className={styles.div}>
         <h1 className={styles.h1}>Already a user:</h1>
         <form onSubmit={handleLogin} className={styles.logInForm}>
