@@ -26,11 +26,11 @@ async function sendOTPEmail(email: string, otp: string) {
 
 export async function POST(request: NextRequest) {
     try {
-        const { uemail } = await request.json();
+        const { uemail, forgotPassword } = await request.json();
         await connect();
         console.log(uemail);
         const user = await userModel.findOne({ email: uemail });
-        if (user && user.verified) {
+        if (user && user.verified && (forgotPassword==false)) {
             return NextResponse.json(
                 { error: "User already exists" },
                 { status: 400 }

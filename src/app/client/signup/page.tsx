@@ -57,7 +57,7 @@ const SignUp: React.FC = () => {
         try {
             setVerifying(false);
             setMailSent(true);
-            const res = await axios.post("/api/user/sendOtp", { uemail: details.uemail });
+            const res = await axios.post("/api/user/sendOtp", { uemail: details.uemail, forgotPassword: false });
             console.log(res);
         } catch (error: unknown) {
             if (typeof error === "object" && error !== null && "response" in error) {
@@ -105,6 +105,7 @@ const SignUp: React.FC = () => {
                 {(!mailSent && !verified) && (
                     <form onSubmit={handleEmailSend} className={styles.createUserForm}>
                         <input type="email" name="uemail" placeholder="Enter email" onChange={handleChange} required className={styles.createUserFormInput} />
+                        {/* <input type="hidden" name="forgotPassword" value="false"/> */}
                         <input type="submit" value="Send OTP" className={styles.crtbtn} />
                     </form>
                 )}

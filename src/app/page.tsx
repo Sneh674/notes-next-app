@@ -80,6 +80,8 @@ export default function Home() {
           <input type="submit" value="Log User" id="cubtn" className={styles.cubtn} />
           <div className={styles.errormsg}>{errorMsg}</div>
         </form>
+        <Link href="/client/forgot" className={styles.forgotLink}>Forgot password</Link>
+
         <h1>New user:</h1>
         <Link href="/client/signup" className={styles.signUpLink}>Sign Up</Link>
       </div>
