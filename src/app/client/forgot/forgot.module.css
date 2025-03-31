@@ -1,4 +1,4 @@
-.bodyCreateUser {
+.forgotMain {
     background-color: rgb(81, 82, 83);
     color: #ffffff;
     padding: 20px;
@@ -9,6 +9,7 @@
 .toLoginLink {
     color: bisque;
     font-size: large;
+    margin-bottom: 15px;
 }
 
 .crt {
@@ -26,12 +27,18 @@
     padding: 10px;
     background-color: #d9cda3;
     border-radius: 10px;
+    margin-top: 20px;
 }
 
 .createUserFormInput {
     padding: 10px;
     border-radius: 10px;
     font-family: "Spline Sans Mono", monospace;
+}
+.verifyOtp{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .crtbtn {

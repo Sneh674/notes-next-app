@@ -204,24 +204,26 @@ export default function AllNotes() {
                     <input type="submit" value="Add Note" className={styles.addbtn} style={{ color: 'rgb(250, 177, 81)', }} />
                 </form>
             </div>
-            <div className={styles.notes}>
-                {notes.length > 0 ? (
-                    notes.map((note) => (
-                        <div className={styles.note} key={note._id as string}>
-                            <div className={styles.ntitle}>{note.title}</div>
-                            <div className={styles.ntext}>{note.content}</div>
-                            {/* <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div> */}
-                            <button className={styles.smlink} onClick={handleSeeMoreClick(note._id)}>See More</button>
-                            <div className={styles.edel}>
-                                {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
-                                <button onClick={() => handleEditClick(note._id)}>edit</button>
-                                <button onClick={() => handleDeleteClick(note._id)}>delete</button>
+            <div className={styles.notesouterdiv}>
+                <div className={styles.notes}>
+                    {notes.length > 0 ? (
+                        notes.map((note) => (
+                            <div className={styles.note} key={note._id as string}>
+                                <div className={styles.ntitle}>{note.title}</div>
+                                <div className={styles.ntext}>{note.content}</div>
+                                {/* <div className={styles.smlink}><a href={`/notes/full/${note._id}`}>See More</a></div> */}
+                                <button className={styles.smlink} onClick={handleSeeMoreClick(note._id)}>See More</button>
+                                <div className={styles.edel}>
+                                    {/* <a href={`/notes/edit/${note._id}`}>edit</a> */}
+                                    <button onClick={() => handleEditClick(note._id)}>edit</button>
+                                    <button onClick={() => handleDeleteClick(note._id)}>delete</button>
+                                </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <p>No notes found</p>
-                )}
+                        ))
+                    ) : (
+                        <p>No notes found</p>
+                    )}
+                </div>
             </div>
             {deleteModal && (
                 <div className={styles.modal} >

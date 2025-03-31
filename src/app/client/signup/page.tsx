@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
                     </form>
                 )}
                 {(mailSent && !verified) && (
-                    <div className="verifyOtp">
+                    <div className={styles.verifyOtp}>
                         <form onSubmit={handleOtpVerify} className={styles.createUserForm}>
                             {/* <input type="email" name="uemail" placeholder="Enter email" onChange={handleChange} required className={styles.createUserFormInput} /> */}
                             <input type="hidden" name="email" value={email} />

@@ -28,6 +28,11 @@
     background-color: #d9cda3;
     border-radius: 10px;
 }
+.verifyOtp{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .createUserFormInput {
     padding: 10px;

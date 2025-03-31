@@ -97,13 +97,13 @@ export default function Forgot() {
             </Link>
             {(!mailSent && !verified) && (
                 <form onSubmit={handleEmailSend} className={styles.createUserForm}>
-                    <input type="uemail" name="uemail" id="" placeholder="Enter Email" required onChange={handleChange}/>
+                    <input type="uemail" name="uemail" id="" placeholder="Enter Email" className={styles.createUserFormInput} required onChange={handleChange}/>
                     {/* <input type="hidden" name="forgotPassword" value="true"/> */}
-                    <input type="submit" value="Send OTP" />
+                    <input type="submit" value="Send OTP" className={styles.crtbtn} />
                 </form>
             )}
             {(mailSent && !verified) && (
-                <div className="verifyOtp">
+                <div className={styles.verifyOtp}>
                     <form onSubmit={handleOtpVerify} className={styles.createUserForm}>
                         {/* <input type="email" name="uemail" placeholder="Enter email" onChange={handleChange} required className={styles.createUserFormInput} /> */}
                         <input type="hidden" name="uemail" value={email} />
@@ -114,9 +114,9 @@ export default function Forgot() {
                 </div>
             )}
             {(mailSent && verified) && (
-                <form onSubmit={handleSubmit}>
-                    <input type="password" name="upassword" id="" placeholder="Enter new password" onChange={handleChange} />
-                    <input type="submit" value="Submit" />
+                <form onSubmit={handleSubmit} className={styles.createUserForm}>
+                    <input type="password" name="upassword" id="" className={styles.createUserFormInput} placeholder="Enter new password" onChange={handleChange} />
+                    <input type="submit" value="Submit" className={styles.crtbtn} />
                 </form>
             )}
             <div className={styles.errormsg}>{errorMsg}</div>
