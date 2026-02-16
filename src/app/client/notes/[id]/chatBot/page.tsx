@@ -7,12 +7,12 @@ import styles from "./chatbot.module.css";
 export default function ChatBot() {
   const router = useRouter();
 
-  const [input, setInput] = useState("");
-  const [userMessages, setUserMessages] = useState([]);
-  const [botMessages, setBotMessages] = useState([]);
+  const [input, setInput] = useState<string>("");
+  const [userMessages, setUserMessages] = useState<string[]>([]);
+  const [botMessages, setBotMessages] = useState<string[]>([]);
 
-  const chatEndRef = useRef(null);
-  const textareaRef = useRef(null);
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,19 +33,21 @@ export default function ChatBot() {
     }
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value);
 
     const el = textareaRef.current;
-    el.style.height = "auto";
-    el.style.height = Math.min(el.scrollHeight, 160) + "px";
+    if (el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 160) + "px";
+    }
   };
 
   return (
