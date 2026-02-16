@@ -6,6 +6,7 @@ interface INote extends Document {
   email: string;
   title: string;
   content: string;
+  embedding?: number[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,7 +27,11 @@ const noteSchema = new Schema<INote>({
   },
   content: {
     type: String
-  }
+  },
+  embedding: {
+    type: [Number],
+    default: []
+  },
 }, { timestamps: true });
 
 // Create and export the model

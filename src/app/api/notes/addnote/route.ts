@@ -2,6 +2,20 @@ import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import NoteModel from "@/models/notesModel";
 import { connect, disconnect } from "@/dbConfig/dbConfig";
+import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+
+let extractor: Pipeline | FeatureExtractionPipeline | null;
+
+// Load model once (important)
+async function getModel(): Promise<Pipeline | null | FeatureExtractionPipeline> {
+    if (!extractor) {
+        extractor = await pipeline(
+            "feature-extraction",
+            "Xenova/all-MiniLM-L6-v2"
+        );
+    }
+    return extractor;
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -24,13 +38,27 @@ export async function POST(request: NextRequest) {
         console.log("trial1");
         const reqBody = await request.json();
         const { username, title, content, useremail } = reqBody;
+
+        const model = await getModel();
+        if (!model) {
+            return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
+        }
+
+        const text = `${title}\n${content}`;
+        const output = await model(text, {
+            pooling: "mean",
+            normalize: true
+        });
+        const embedding = Array.from(output.data);
+
         console.log("trial2");
-        console.log({ username, title, content, useremail });
+        console.log({ username, title, content, useremail, embedding });
         const createdNote = await NoteModel.create({
             name: username,
             title: title,
             content: content,
-            email: useremail
+            email: useremail,
+            embedding: embedding
         });
         console.log(createdNote);
         await disconnect();

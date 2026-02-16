@@ -28,6 +28,12 @@
     color: bisque;
 }
 
+.topbuttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
 .logoutbutton {
     font-family: "Spline Sans Mono", monospace;
     background-color: #3c3c3c;
@@ -37,10 +43,20 @@
     border-radius: 5px;
 }
 
-.notesouterdiv{
+.chatbotbutton {
+    font-family: "Spline Sans Mono", monospace;
+    background-color: #3c3c3c;
+    color: bisque;
+    padding: 10px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+.notesouterdiv {
     background-color: #000000;
     padding: 15px;
 }
+
 .notes {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -400,10 +416,11 @@
         padding: 5px;
     }
 
-    .smlink{
+    .smlink {
         padding: 3px;
         font-size: x-small;
     }
+
     .edel>button {
         font-size: small;
         padding: 5px;
@@ -481,11 +498,12 @@
         flex-direction: column;
     }
 
-    .edel>button{
+    .edel>button {
         font-size: xx-small;
         padding: 3px;
     }
-    .smlink{
+
+    .smlink {
         padding: 2px;
         font-size: xx-small;
     }
@@ -514,6 +532,7 @@
         gap: 10px;
         padding: 10px;
     }
+
     .note {
         border-radius: 10px;
         /* width: 75px; */
