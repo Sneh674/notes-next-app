@@ -1,5 +1,7 @@
 "use client";
-
+// import DownArrow from "@/assets/down-arrow-svgrepo-com.svg";
+import Image from "next/image";
+import DownArrow from "../../../../assets/arrow-down.svg";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./chatbot.module.css";
@@ -17,14 +19,33 @@ export default function ChatBot() {
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showScrollButton, setShowScrollButton] = useState<boolean>(false);
 
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const chatHistoryRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  // auto scroll
+  // Auto scroll when new message
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
+
+  // Show / hide scroll-to-bottom button
+  useEffect(() => {
+    const container = chatHistoryRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const atBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 50;
+
+      setShowScrollButton(!atBottom);
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -42,7 +63,6 @@ export default function ChatBot() {
       textareaRef.current.style.height = "auto";
     }
 
-    // 🔥 Replace this with real API call later
     await new Promise((res) => setTimeout(res, 700));
 
     const botMessage: Message = {
@@ -71,6 +91,10 @@ export default function ChatBot() {
     }
   };
 
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className={styles.chatPage}>
       {/* Back Button */}
@@ -79,7 +103,7 @@ export default function ChatBot() {
       </button>
 
       <div className={styles.chatContainer}>
-        <div className={styles.chatHistory}>
+        <div ref={chatHistoryRef} className={styles.chatHistory}>
           {messages.map((msg, index) => (
             <div key={index} className={styles.messageWrapper}>
               <div
@@ -107,25 +131,33 @@ export default function ChatBot() {
       </div>
 
       {/* Input */}
-      <div className={styles.inputOuter}>
-        <div className={styles.inputContainer}>
-          <textarea
-            ref={textareaRef}
-            placeholder="Type your message..."
-            value={input}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            className={styles.chatInput}
-            rows={1}
-            disabled={isLoading}
-          />
-          <button
-            onClick={handleSend}
-            className={styles.sendButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "..." : "Enter"}
+      <div className={styles.bottomContent}>
+        {/* Scroll To Bottom Button */}
+        {showScrollButton && (
+          <button className={styles.scrollToBottom} onClick={scrollToBottom}>
+            <Image src={DownArrow} alt="Scroll Down" width={18} height={18} />
           </button>
+        )}
+        <div className={styles.inputOuter}>
+          <div className={styles.inputContainer}>
+            <textarea
+              ref={textareaRef}
+              placeholder="Type your message..."
+              value={input}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              className={styles.chatInput}
+              rows={1}
+              disabled={isLoading}
+            />
+            <button
+              onClick={handleSend}
+              className={styles.sendButton}
+              disabled={isLoading}
+            >
+              {isLoading ? "..." : "Enter"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
