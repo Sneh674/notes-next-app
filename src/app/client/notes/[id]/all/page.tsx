@@ -67,6 +67,7 @@ export default function AllNotes() {
       });
       setUsername(response.data.username);
       setUseremail(response.data.email);
+      localStorage.setItem("email", response.data.email);
       console.log(response.data);
       return null; // Explicitly return null instead of `return;`
     } catch (error) {

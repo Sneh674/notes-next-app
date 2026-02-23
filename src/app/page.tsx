@@ -20,6 +20,7 @@ export default function Home() {
     try {
       e.preventDefault();
       setErrorMsg("");
+      console.warn("Login details:", details);
       // console.log(details);
 
       const response = await axios.post("/api/user/login", details, {
@@ -77,7 +78,7 @@ export default function Home() {
   }, []);
   return (
     <div className={styles.homemain}>
-      {verifying && !verifiedUser ? (
+      {!verifying && !verifiedUser ? (
         <>
           <h2 className={styles.h2}>Welcome to your Notes</h2>
           <div className={styles.div}>

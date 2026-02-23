@@ -63,15 +63,49 @@ export default function ChatBot() {
       textareaRef.current.style.height = "auto";
     }
 
-    await new Promise((res) => setTimeout(res, 700));
+    try {
+      const token = localStorage.getItem("token"); // or wherever you store JWT
+      const useremail = localStorage.getItem("email");
+      console.log("token", token);
+      console.log("useremail", useremail);
 
-    const botMessage: Message = {
-      role: "assistant",
-      text: `Bot reply to: ${userMessage.text}`,
-    };
+      const response = await fetch("/api/generateEmbeddings/chatBotSearch", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          query: userMessage.text,
+          email: useremail, // adjust if needed
+        }),
+      });
 
-    setMessages((prev) => [...prev, botMessage]);
-    setIsLoading(false);
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+
+      const botMessage: Message = {
+        role: "assistant",
+        text: data.answer || "No response",
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error(error);
+
+      const errorMessage: Message = {
+        role: "assistant",
+        text: "Something went wrong. Please try again.",
+      };
+
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
