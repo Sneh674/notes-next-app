@@ -80,7 +80,7 @@ export default function Home() {
     <div className={styles.homemain}>
       {!verifying && !verifiedUser ? (
         <>
-          <h2 className={styles.h2}>Welcome to your Notes</h2>
+          <h2 className={styles.h2}>Welcome to Notesam</h2>
           <div className={styles.div}>
             <h1 className={styles.h1}>Already a user:</h1>
             <form onSubmit={handleLogin} className={styles.logInForm}>
