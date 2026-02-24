@@ -10,6 +10,7 @@
     color: bisque;
     font-size: large;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .crt {
@@ -35,7 +36,8 @@
     border-radius: 10px;
     font-family: "Spline Sans Mono", monospace;
 }
-.verifyOtp{
+
+.verifyOtp {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -48,6 +50,7 @@
     border-radius: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 750px) {

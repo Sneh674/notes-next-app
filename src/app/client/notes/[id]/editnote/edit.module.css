@@ -1,8 +1,33 @@
-.editmain{
+.editmain {
     min-height: 100%;
     background-color: #4f627d;
     padding: 25px;
 }
+
+.editloader {
+    min-height: 100%;
+    /* min-height: 100vh; */
+    background-color: #4f627d;
+    padding: 25px;
+    display: flex;
+    /* min-width: 100vw; */
+    /* flex: 1; */
+    /* height: 100%; */
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    /* background-color: #000; */
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    /* flex-grow: inherit; */
+    min-height: 50vh;
+    /* width: 100%; */
+}
+
 .linkToNotes {
     font-family: "Spline Sans Mono", monospace;
     color: #ffed75;
@@ -12,13 +37,16 @@
     border-radius: 5px;
     font-size: large;
     border: #c1ad2e 2px solid;
+    cursor: pointer;
 }
+
 .linkToNotes:hover {
     background-color: #c1ad2e;
     font-weight: 700;
     color: #4a596f;
 }
-.editForm{
+
+.editForm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,6 +56,7 @@
     padding: 20px;
     border-radius: 20px;
 }
+
 /* .editForm input{
     width: 70%;
     padding: 10px;
@@ -37,7 +66,7 @@
     background-color: #58596a;
     color: #ffed75;
 } */
-.editForm textarea{
+.editForm textarea {
     resize: none;
     width: 70%;
     padding: 10px;
@@ -45,7 +74,8 @@
     border-radius: 5px;
     border: none;
 }
-.editForm input[type="submit"]{
+
+.editForm input[type="submit"] {
     width: 200px;
     font-weight: 700;
     padding: 10px;
@@ -54,46 +84,59 @@
     border: none;
 }
 
+.editSubmit {
+    cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .editForm{
+    .editForm {
         margin: 10px;
     }
-    .editForm input[type="submit"]{
+
+    .editForm input[type="submit"] {
         width: 150px;
     }
 }
+
 @media (max-width: 600px) {
-    .editForm{
+    .editForm {
         margin: 10px;
         padding: 10px;
     }
-    .editForm textarea{
+
+    .editForm textarea {
         width: 85%;
         padding: 10px;
         margin-bottom: 15px;
     }
-    .editForm input[type="submit"]{
+
+    .editForm input[type="submit"] {
         width: 150px;
     }
+
     .linkToNotes {
         padding: 5px;
         border-radius: 5px;
         font-size: medium;
     }
 }
+
 @media (max-width: 400px) {
-    .editForm{
+    .editForm {
         margin: 7px;
         padding: 7px;
     }
-    .editForm textarea{
+
+    .editForm textarea {
         width: 90%;
         padding: 7px;
         margin-bottom: 10px;
     }
-    .editForm input[type="submit"]{
+
+    .editForm input[type="submit"] {
         width: 100px;
     }
+
     .linkToNotes {
         padding: 3px;
         border-radius: 5px;

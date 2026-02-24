@@ -77,10 +77,10 @@ export const POST = async (req: NextRequest) => {
         }));
 
         scoredNotes.sort((a, b) => b.score - a.score);
-        // console.log("Scored Notes:", scoredNotes.slice(0, 3).map(n => ({ id: n.note._id, score: n.score, title: n.note.title })));
+        console.log("Scored Notes:", scoredNotes.slice(0, 10).map(n => ({ id: n.note._id, score: n.score, title: n.note.title })));
 
         // return NextResponse.json(scoredNotes.slice(0, 3));
-        const topNotes = scoredNotes.slice(0, 3);
+        const topNotes = scoredNotes.slice(0, 10);
 
         // Combine note content into context
         const context = topNotes
@@ -93,6 +93,15 @@ export const POST = async (req: NextRequest) => {
         const prompt = `
         You are a helpful assistant.
 
+        Sensitive personal data (passwords, credentials, IDs, numbers, emails, etc.)
+        must ONLY be provided if the user explicitly and specifically asks for that exact item.
+
+        If the user asks a vague or general question (e.g., "tell me about myself",
+        "what do you know about me", etc.), do NOT include sensitive details.
+        Instead, provide only general, non-sensitive descriptive information.
+
+        Do not assume that a general question implies permission to reveal credentials.
+
         Use the context below to answer the user's question.
         If the answer is not in the context, say you don't know.
 
@@ -104,7 +113,7 @@ export const POST = async (req: NextRequest) => {
         Do not say something like "Based on the provided notes, the answer is..."
         Do not ask for what else you could do or anything like that.
 
-        Do give the user full, properly worded answer with all related information from the context.
+        Do give the user full, properly worded answer with all essential information from the context.
 
         Context:
         ${context}

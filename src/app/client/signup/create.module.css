@@ -1,4 +1,3 @@
-
 .bodyCreateUser {
     background-color: rgb(81, 82, 83);
     color: #ffffff;
@@ -10,6 +9,7 @@
 .toLoginLink {
     color: bisque;
     font-size: large;
+    cursor: pointer;
 }
 
 .crt {
@@ -28,7 +28,8 @@
     background-color: #d9cda3;
     border-radius: 10px;
 }
-.verifyOtp{
+
+.verifyOtp {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -47,6 +48,7 @@
     border-radius: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 750px) {
@@ -54,12 +56,15 @@
         font-size: x-large;
         margin-bottom: 15px;
     }
+
     .toLoginLink {
         font-size: medium;
     }
+
     .createUserForm {
         width: 380px;
     }
+
     .crtbtn {
         font-size: medium;
         width: 120px;
@@ -72,15 +77,19 @@
         margin-bottom: 10px;
         margin-top: 10px;
     }
+
     .toLoginLink {
         font-size: small;
     }
+
     .createUserForm {
         width: 250px;
     }
+
     .createUserFormInput {
         padding: 5px;
     }
+
     .crtbtn {
         font-size: small;
         width: 100px;
@@ -93,16 +102,20 @@
         margin-bottom: 10px;
         margin-top: 10px;
     }
+
     .toLoginLink {
         font-size: x-small;
     }
+
     .createUserForm {
         width: 200px;
     }
+
     .createUserFormInput {
         padding: 5px;
         font-size: small;
     }
+
     .crtbtn {
         font-size: x-small;
         width: 82px;
@@ -115,17 +128,21 @@
         margin-bottom: 7px;
         margin-top: 7px;
     }
+
     .toLoginLink {
         font-size: xx-small;
     }
+
     .createUserForm {
         width: 150px;
         gap: 5px;
     }
+
     .createUserFormInput {
         padding: 5px;
         font-size: x-small;
     }
+
     .crtbtn {
         font-size: xx-small;
         width: 80px;

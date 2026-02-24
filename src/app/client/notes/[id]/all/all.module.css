@@ -41,6 +41,7 @@
     padding: 10px;
     border-style: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .chatbotbutton {
@@ -50,6 +51,7 @@
     padding: 10px;
     border-style: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .notesouterdiv {
@@ -125,6 +127,7 @@
     border-radius: 5px;
     border: rgb(232, 218, 71) solid 2px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .edel {
@@ -143,6 +146,7 @@
     font-weight: 600;
     padding: 5px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .notesadd {
@@ -180,6 +184,7 @@
     color: rgb(205, 205, 207);
     width: 150px;
     background-color: #5f5f61;
+    cursor: pointer;
 }
 
 .modal {
