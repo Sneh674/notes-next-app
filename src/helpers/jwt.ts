@@ -13,7 +13,7 @@ export interface TokenPayload {
 
 // Generate JWT Token
 export const generateToken = (payload: TokenPayload): string => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "60d" });
 };
 
 // Verify JWT Token
