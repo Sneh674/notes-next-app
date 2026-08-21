@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
         const users = await UserModel.findOne({ _id:user.id});
-        await disconnect();
+        // await disconnect();
         return NextResponse.json({ username: users.name, email: users.email });
     } catch (error: unknown) {  // Use `unknown` for proper typing
         if (error instanceof Error) {

@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 
         try {
             const notes = await NoteModel.find({ email: user.email }).sort({ updatedAt: -1 });
-            await disconnect();
+            // await disconnect();
             return NextResponse.json({ user: user.email, allNotes: notes });
         } catch (error) {
             console.error("Error fetching notes:", error); // Proper logging

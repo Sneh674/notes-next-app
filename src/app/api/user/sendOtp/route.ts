@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
             user.otp = otp;
             user.expiresAt = new Date(Date.now() + 10 * 60000);
             await user.save();
-            await disconnect();
+            // await disconnect();
             return NextResponse.json({ message: "OTP sent" });
         }
         const response = await userModel.create({
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
             password: "12345678",
             verified: false,
         });
-        await disconnect();
+        // await disconnect();
         return NextResponse.json({ response });
     } catch (error: unknown) {
         if (error instanceof Error) {

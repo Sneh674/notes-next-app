@@ -2,12 +2,12 @@
 import { NextResponse } from "next/server";
 import NoteModel from "@/models/notesModel";
 import { connect, disconnect } from "@/dbConfig/dbConfig";
-import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
-
-let extractor: Pipeline | FeatureExtractionPipeline | null;
+// import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
+let extractor: FeatureExtractionPipeline | null;
 
 // Load model once (important)
-async function getModel(): Promise<Pipeline | null | FeatureExtractionPipeline> {
+async function getModel(): Promise< null | FeatureExtractionPipeline> {
     if (!extractor) {
         extractor = await pipeline(
             "feature-extraction",
@@ -54,7 +54,7 @@ export async function POST() {
 
         }
 
-        await disconnect();
+        // await disconnect();
         return NextResponse.json({
             message: "Embeddings generated successfully"
         });

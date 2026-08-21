@@ -2,12 +2,13 @@ import NoteModel from "@/models/notesModel";
 import { connect, disconnect } from "@/dbConfig/dbConfig";
 import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
-import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+// import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
 
-let extractor: Pipeline | FeatureExtractionPipeline | null;
+let extractor: FeatureExtractionPipeline | null;
 
 // Load model once (important)
-async function getModel(): Promise<Pipeline | null | FeatureExtractionPipeline> {
+async function getModel(): Promise<null | FeatureExtractionPipeline> {
     if (!extractor) {
         extractor = await pipeline(
             "feature-extraction",
@@ -57,7 +58,7 @@ export async function PUT(request: NextRequest, context: { params: { noteId: str
             const note = await NoteModel.findOneAndUpdate({ _id: noteId }, { $set: { title, content, embedding } }, { new: true });
             console.log("Note updated:", note);
 
-            await disconnect();
+            // await disconnect();
             return NextResponse.json({ note });
         } catch (error: unknown) {
             if (error instanceof Error) {

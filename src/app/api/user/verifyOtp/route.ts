@@ -20,14 +20,14 @@ export async function POST(request: NextRequest){
             user.expiresAt=null;
             user.verified=true;
             await user.save();
-            await disconnect();
+            // await disconnect();
             return NextResponse.json(
                 { message: "OTP verified", verifed: true },
                 { status: 200 }
             );
         }
         else{
-            await disconnect();
+            // await disconnect();
             return NextResponse.json(
                 { error: "Invalid OTP" },
                 { status: 400 }

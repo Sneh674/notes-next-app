@@ -32,7 +32,7 @@ export async function GET(request: NextRequest, context: { params: { noteId: str
             return NextResponse.json({ message: "Note not found" }, { status: 404 });
         }
 
-        await disconnect();
+        // await disconnect();
         return NextResponse.json({ note });
 
     } catch (error: unknown) {

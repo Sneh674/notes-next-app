@@ -1,32 +1,61 @@
-import mongoose from 'mongoose';
+import dns from "dns";
 
-const connect= async()=>{
-    try{
-        if (mongoose.connection.readyState === 1) {
-            console.log("Already connected to MongoDB.");
-            return;
-        }
-        await mongoose.connect(process.env.DB_URL!)//! - for 
-        const connection=mongoose.connection;
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
-        connection.on('connected',()=>{
-            console.log('MongoDB connected successfully')
-        })
-        connection.on('error',(err)=>{
-            console.log(`MongoDB connection error: ${err}`)
-        })
-    }
-    catch(error){
-        console.log(`Error occurred while connecting to db: ${error}`)
-    }
+import mongoose from "mongoose";
+
+const MONGODB_URI = process.env.DB_URL;
+
+if (!MONGODB_URI || MONGODB_URI==undefined) {
+    throw new Error("DB_URL is not defined");
 }
-const disconnect = async () => {
-    try {
-        await mongoose.connection.close();
-        console.log('MongoDB disconnected successfully');
-    } catch (error) {
-        console.log(`Error occurred while disconnecting from db: ${error}`);
-    }
+
+interface MongooseCache {
+    conn: typeof mongoose | null;
+    promise: Promise<typeof mongoose> | null;
+}
+
+declare global {
+    var mongooseCache: MongooseCache | undefined;
+}
+
+const cached = global.mongooseCache ?? {
+    conn: null,
+    promise: null,
 };
 
-export { connect,disconnect };
+global.mongooseCache = cached;
+
+export async function connect() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+    if (!MONGODB_URI || MONGODB_URI==undefined) {
+        throw new Error("DB_URL is not defined");
+    }
+
+    if (!cached.promise) {
+        console.log("Creating MongoDB connection...");
+
+        cached.promise = mongoose
+            .connect(MONGODB_URI, {
+                serverSelectionTimeoutMS: 10000,
+            })
+            .then((mongooseInstance) => {
+                console.log("MongoDB connected successfully");
+                console.log(
+                    "Database:",
+                    mongooseInstance.connection.db?.databaseName
+                );
+
+                return mongooseInstance;
+            })
+            .catch((error) => {
+                cached.promise = null;
+                console.error("MongoDB connection failed:", error);
+                throw error;
+            });
+    }
+
+    return cached.promise;
+}

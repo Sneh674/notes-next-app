@@ -36,17 +36,17 @@ export async function POST(request: NextRequest) {
             // token: token,
         });
 
-        await disconnect();
+        // await disconnect();
         return response;
     } catch (error: unknown) {
         if (error instanceof Error) {
-            await disconnect();
+            // await disconnect();
             return NextResponse.json(
                 { error: error.message },
                 { status: 500 }
             );
         }
-        await disconnect();
+        // await disconnect();
         return NextResponse.json(
             { error: "An unknown error occurred" },
             { status: 500 }

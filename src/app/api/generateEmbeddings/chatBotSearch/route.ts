@@ -1,4 +1,5 @@
-import { pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+// import { pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
+import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
 import { connect } from "@/dbConfig/dbConfig";
 import NoteModel from "@/models/notesModel";
 import { verifyToken } from "@/helpers/jwt";

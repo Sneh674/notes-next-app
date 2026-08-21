@@ -34,7 +34,7 @@ export async function DELETE(request: NextRequest, context: { params: { noteId: 
             return NextResponse.json({ message: "Note not found" }, { status: 404 });
         }
 
-        await disconnect();
+        // await disconnect();
         return NextResponse.json({ message: "Note deleted successfully", deletedNote });
 
     } catch (error: unknown) {
