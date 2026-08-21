@@ -1,4 +1,4 @@
-import {connect,disconnect} from "@/dbConfig/dbConfig";
+import {connect} from "@/dbConfig/dbConfig";
 import userModel from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";

@@ -1,5 +1,5 @@
 import NoteModel from "@/models/notesModel";
-import { connect, disconnect } from "@/dbConfig/dbConfig";
+import { connect } from "@/dbConfig/dbConfig";
 import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 // import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";

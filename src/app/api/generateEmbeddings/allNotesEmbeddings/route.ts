@@ -1,7 +1,7 @@
 // import { verifyToken } from "@/helpers/jwt";
 import { NextResponse } from "next/server";
 import NoteModel from "@/models/notesModel";
-import { connect, disconnect } from "@/dbConfig/dbConfig";
+import { connect } from "@/dbConfig/dbConfig";
 // import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
 import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
 let extractor: FeatureExtractionPipeline | null;
