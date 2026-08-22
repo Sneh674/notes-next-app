@@ -6,7 +6,8 @@ import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import { callHuggingFace } from "@/app/api/llmCall/route";
 import generateEmbedding from "@/helpers/generateEmbedding"
-
+export const runtime = "nodejs";
+export const maxDuration = 60;
 // let extractor: FeatureExtractionPipeline | null = null;
 
 // const getModel = async (): Promise<FeatureExtractionPipeline> => {
