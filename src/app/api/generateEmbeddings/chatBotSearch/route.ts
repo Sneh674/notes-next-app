@@ -1,22 +1,23 @@
 // import { pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
-import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
+// import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
 import { connect } from "@/dbConfig/dbConfig";
 import NoteModel from "@/models/notesModel";
 import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 import { callHuggingFace } from "@/app/api/llmCall/route";
+import generateEmbedding from "@/helpers/generateEmbedding"
 
-let extractor: FeatureExtractionPipeline | null = null;
+// let extractor: FeatureExtractionPipeline | null = null;
 
-const getModel = async (): Promise<FeatureExtractionPipeline> => {
-    if (!extractor) {
-        extractor = await pipeline(
-            "feature-extraction",
-            "Xenova/all-MiniLM-L6-v2"
-        );
-    }
-    return extractor;
-};
+// const getModel = async (): Promise<FeatureExtractionPipeline> => {
+//     if (!extractor) {
+//         extractor = await pipeline(
+//             "feature-extraction",
+//             "Xenova/all-MiniLM-L6-v2"
+//         );
+//     }
+//     return extractor;
+// };
 
 
 const cosineSimilarity = (a: number[], b: number[]) => {
@@ -51,16 +52,17 @@ export const POST = async (req: NextRequest) => {
 
         const { query, email } = await req.json();
 
-        const model = await getModel();
-        if (!model) {
-            return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
-        }
+        // const model = await getModel();
+        // if (!model) {
+        //     return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
+        // }
         // const queryEmbedding = await generateEmbedding(query);
-        const output = await model(query, {
-            pooling: "mean",
-            normalize: true
-        });
-        const queryEmbedding = Array.from(output.data);
+        // const output = await model(query, {
+        //     pooling: "mean",
+        //     normalize: true
+        // });
+        const queryEmbedding = await generateEmbedding(query);
+        // const queryEmbedding = Array.from(output.data);
         console.log("user email from token:", email);
 
         const notes = await NoteModel.find({ email }, { title: 1, content: 1, embedding: 1 });

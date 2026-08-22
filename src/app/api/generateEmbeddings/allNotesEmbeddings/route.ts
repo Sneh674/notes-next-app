@@ -3,29 +3,30 @@ import { NextResponse } from "next/server";
 import NoteModel from "@/models/notesModel";
 import { connect } from "@/dbConfig/dbConfig";
 // import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
-import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
-let extractor: FeatureExtractionPipeline | null;
+// import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
+// let extractor: FeatureExtractionPipeline | null;
+import generateEmbedding from "@/helpers/generateEmbedding"
 
 // Load model once (important)
-async function getModel(): Promise< null | FeatureExtractionPipeline> {
-    if (!extractor) {
-        extractor = await pipeline(
-            "feature-extraction",
-            "Xenova/all-MiniLM-L6-v2"
-        );
-    }
-    return extractor;
-}
+// async function getModel(): Promise< null | FeatureExtractionPipeline> {
+//     if (!extractor) {
+//         extractor = await pipeline(
+//             "feature-extraction",
+//             "Xenova/all-MiniLM-L6-v2"
+//         );
+//     }
+//     return extractor;
+// }
 
 export async function POST() {
     try {
         await connect();
 
-        const model = await getModel();
+        // const model = await getModel();
 
-        if (!model) {
-            return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
-        }
+        // if (!model) {
+        //     return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
+        // }
 
         // Get notes without embeddings
         const notes = await NoteModel.find({
@@ -40,12 +41,13 @@ export async function POST() {
         for (const note of notes) {
             const text = `${note.title}\n${note.content}`;
 
-            const output = await model(text, {
-                pooling: "mean",
-                normalize: true
-            });
+            // const output = await model(text, {
+            //     pooling: "mean",
+            //     normalize: true
+            // });
 
-            const embedding = Array.from(output.data);
+            // const embedding = Array.from(output.data);
+            const embedding = await generateEmbedding(text);
 
             await NoteModel.updateOne(
                 { _id: note._id },

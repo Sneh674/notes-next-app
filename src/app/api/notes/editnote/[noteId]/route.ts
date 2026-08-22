@@ -3,20 +3,21 @@ import { connect } from "@/dbConfig/dbConfig";
 import { verifyToken } from "@/helpers/jwt";
 import { NextRequest, NextResponse } from "next/server";
 // import { pipeline, Pipeline, FeatureExtractionPipeline } from "@xenova/transformers";
-import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
+// import { pipeline, FeatureExtractionPipeline } from '@huggingface/transformers';
+import generateEmbedding from "@/helpers/generateEmbedding"
 
-let extractor: FeatureExtractionPipeline | null;
+// let extractor: FeatureExtractionPipeline | null;
 
 // Load model once (important)
-async function getModel(): Promise<null | FeatureExtractionPipeline> {
-    if (!extractor) {
-        extractor = await pipeline(
-            "feature-extraction",
-            "Xenova/all-MiniLM-L6-v2"
-        );
-    }
-    return extractor;
-}
+// async function getModel(): Promise<null | FeatureExtractionPipeline> {
+//     if (!extractor) {
+//         extractor = await pipeline(
+//             "feature-extraction",
+//             "Xenova/all-MiniLM-L6-v2"
+//         );
+//     }
+//     return extractor;
+// }
 
 export async function PUT(request: NextRequest, context: { params: { noteId: string } }) {
     try {
@@ -43,17 +44,19 @@ export async function PUT(request: NextRequest, context: { params: { noteId: str
             return NextResponse.json({ message: "Request body is required" }, { status: 400 });
         }
         const { title, content } = reqBody;
-        const model = await getModel();
-        if (!model) {
-            return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
-        }
+        // const model = await getModel();
+        // if (!model) {
+        //     return NextResponse.json({ message: "Couldn't get model for Vector to Embeddings" }, { status: 501 });
+        // }
 
         const text = `${title}\n${content}`;
-        const output = await model(text, {
-            pooling: "mean",
-            normalize: true
-        });
-        const embedding = Array.from(output.data);
+        // const output = await model(text, {
+        //     pooling: "mean",
+        //     normalize: true
+        // });
+        // const embedding = Array.from(output.data);
+        const embedding = await generateEmbedding(text);
+
         try {
             const note = await NoteModel.findOneAndUpdate({ _id: noteId }, { $set: { title, content, embedding } }, { new: true });
             console.log("Note updated:", note);
